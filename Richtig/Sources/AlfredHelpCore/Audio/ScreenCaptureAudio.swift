@@ -28,19 +28,19 @@ final class ScreenCaptureStartGate: @unchecked Sendable {
 
     @discardableResult
     func resolve(_ result: Result<Void, Error>) -> Bool {
-        let (accepted, waiters, timeout) = lock.withLock {
+        let (accepted, resumedWaiters, timeout) = lock.withLock {
             () -> (Bool, [CheckedContinuation<Void, Error>], Task<Void, Never>?) in
             guard outcome == nil else { return (false, [], nil) }
             outcome = result
-            let pending = Array(waiters.values)
-            waiters.removeAll()
+            let pending = Array(self.waiters.values)
+            self.waiters.removeAll()
             let timer = timeoutTask
             timeoutTask = nil
             return (true, pending, timer)
         }
         guard accepted else { return false }
         timeout?.cancel()
-        for waiter in waiters { waiter.resume(with: result) }
+        for waiter in resumedWaiters { waiter.resume(with: result) }
         return true
     }
 

@@ -6,6 +6,7 @@ Dieses Protokoll folgt [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ### Behoben
 
+- **Der Release-Build funktioniert wieder mit Swift 6.3.** Wartende ScreenCaptureKit-Aufrufe werden korrekt gesammelt und fortgesetzt.
 - **Der Start fragt keine Freigabe mehrfach ab.** Die ScreenCaptureKit-Anfrage läuft höchstens einmal; spätere Änderungen öffnest du in den Systemeinstellungen. Core Audio wird nicht still beim Programmstart geprüft. Ein stiller Ausgang gilt nicht mehr als bewiesene Ablehnung.
 - **Automatisches Zuhören ist jetzt freiwillig.** Es ist standardmäßig ausgeschaltet. Ein einmaliger Umzug übernimmt bestehende Einstellungen und schaltet den alten Standard ab. Die Bundle-ID bleibt stabil; macOS-Freigaben können bei gleicher Signatur weitergelten.
 - **Ein fehlgeschlagener Audiostream bleibt nicht als aktive Sitzung stehen.** Erschöpfte Wiederherstellungsversuche stoppen die Sitzung mit einem sichtbaren Fehler. Wiederholungen sind begrenzt und werden erst nach stabiler Ausgabe zurückgesetzt.
