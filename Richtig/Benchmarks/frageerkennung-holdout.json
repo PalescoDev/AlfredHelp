@@ -1,0 +1,1279 @@
+{
+  "beschreibung": "HALTEDATENSATZ für die Frageerkennung – bewusst getrennt von frageerkennung.json. Gleiches Format (label: frage | keine | unvollstaendig, kontext = vorangegangene Gesprächszeile). Dieser Satz wurde NICHT zum Abstimmen der Heuristik benutzt und wurde geschrieben, bevor der Regelcode in TextUtilities.swift gelesen wurde – genau deshalb taugt er als Grundlage für eine Aussage über sofortige Fehlalarme. Schwerpunkt liegt bewusst auf Nicht-Fragen, die in Besprechungen fast wie Fragen klingen: Zustimmung, Zusagen, laut Gedachtes, Wiederholungen, Aufzählungen, höfliche Konjunktivsätze, Selbstgespräche, Konditionalsätze und indirekte Rede – deutsch und englisch.",
+  "beispiele": [
+    {
+      "text": "Wann kriegen wir die Zahlen aus dem Controlling?",
+      "kontext": "Der Quartalsabschluss steht nächste Woche an.",
+      "lang": "de",
+      "label": "frage",
+      "kategorie": "direkt-w-frage"
+    },
+    {
+      "text": "Wer hat den Zugriff auf das Produktivsystem freigegeben?",
+      "kontext": "Da war gestern jemand drauf, der da nichts zu suchen hat.",
+      "lang": "de",
+      "label": "frage",
+      "kategorie": "direkt-w-frage"
+    },
+    {
+      "text": "Wie viele Nutzer waren davon betroffen?",
+      "kontext": "Der Ausfall ging von halb drei bis vier.",
+      "lang": "de",
+      "label": "frage",
+      "kategorie": "direkt-w-frage"
+    },
+    {
+      "text": "Warum ist der Job heute Nacht zweimal gelaufen?",
+      "kontext": "Im Log stehen zwei Durchläufe.",
+      "lang": "de",
+      "label": "frage",
+      "kategorie": "direkt-w-frage"
+    },
+    {
+      "text": "Was heißt das jetzt für den Termin im Mai?",
+      "kontext": "Die Zulieferung verschiebt sich um zwei Wochen.",
+      "lang": "de",
+      "label": "frage",
+      "kategorie": "direkt-w-frage"
+    },
+    {
+      "text": "Wo liegt das Protokoll von letzter Woche?",
+      "kontext": "Ich finde das im Laufwerk nicht.",
+      "lang": "de",
+      "label": "frage",
+      "kategorie": "direkt-w-frage"
+    },
+    {
+      "text": "When are we cutting the release branch?",
+      "kontext": "Feature freeze was supposed to be Monday.",
+      "lang": "en",
+      "label": "frage",
+      "kategorie": "direkt-w-frage"
+    },
+    {
+      "text": "Who is on call over the weekend?",
+      "kontext": "We had two pages last Saturday.",
+      "lang": "en",
+      "label": "frage",
+      "kategorie": "direkt-w-frage"
+    },
+    {
+      "text": "How much does the storage cost us per month now?",
+      "kontext": "The bill went up again.",
+      "lang": "en",
+      "label": "frage",
+      "kategorie": "direkt-w-frage"
+    },
+    {
+      "text": "What did the customer actually ask for?",
+      "kontext": "The ticket is pretty vague.",
+      "lang": "en",
+      "label": "frage",
+      "kategorie": "direkt-w-frage"
+    },
+    {
+      "text": "Habt ihr das schon mit der Rechtsabteilung abgestimmt?",
+      "kontext": "Wir wollen die Klausel streichen.",
+      "lang": "de",
+      "label": "frage",
+      "kategorie": "janein-frage"
+    },
+    {
+      "text": "Läuft der Import inzwischen wieder durch?",
+      "kontext": "Gestern ist er dreimal abgebrochen.",
+      "lang": "de",
+      "label": "frage",
+      "kategorie": "janein-frage"
+    },
+    {
+      "text": "Können wir den Termin auf Donnerstag schieben?",
+      "kontext": "Am Mittwoch ist die halbe Mannschaft im Workshop.",
+      "lang": "de",
+      "label": "frage",
+      "kategorie": "janein-frage"
+    },
+    {
+      "text": "Ist das Backup von gestern noch da?",
+      "kontext": "Wir müssen einen Stand zurückspielen.",
+      "lang": "de",
+      "label": "frage",
+      "kategorie": "janein-frage"
+    },
+    {
+      "text": "Did anyone reproduce that on staging?",
+      "kontext": "The bug only shows up under load.",
+      "lang": "en",
+      "label": "frage",
+      "kategorie": "janein-frage"
+    },
+    {
+      "text": "Is the feature flag still on for everyone?",
+      "kontext": "We rolled it out to ten percent last week.",
+      "lang": "en",
+      "label": "frage",
+      "kategorie": "janein-frage"
+    },
+    {
+      "text": "Can we ship without the migration?",
+      "kontext": "The schema change is not reviewed yet.",
+      "lang": "en",
+      "label": "frage",
+      "kategorie": "janein-frage"
+    },
+    {
+      "text": "Ich wollte fragen, ob der Vertrag schon unterschrieben ist",
+      "kontext": "Der Einkauf hat sich seit Dienstag nicht gemeldet.",
+      "lang": "de",
+      "label": "frage",
+      "kategorie": "indirekt"
+    },
+    {
+      "text": "Mich würde interessieren, wie lange das ungefähr dauert",
+      "kontext": "Ihr baut da gerade den Cache um.",
+      "lang": "de",
+      "label": "frage",
+      "kategorie": "indirekt"
+    },
+    {
+      "text": "Sag mir bitte kurz, wie viel Budget noch übrig ist",
+      "kontext": "Wir wollten noch zwei Lizenzen nachkaufen.",
+      "lang": "de",
+      "label": "frage",
+      "kategorie": "aussageform-frage"
+    },
+    {
+      "text": "Erklär mir nochmal, warum das gestern nicht funktioniert hat",
+      "kontext": "Der Rollout ist ja abgebrochen.",
+      "lang": "de",
+      "label": "frage",
+      "kategorie": "aussageform-frage"
+    },
+    {
+      "text": "I'd love to know what the actual error message was",
+      "kontext": "The service just restarted on its own.",
+      "lang": "en",
+      "label": "frage",
+      "kategorie": "indirekt"
+    },
+    {
+      "text": "Walk me through how the fallback works",
+      "kontext": "You mentioned there is a second path.",
+      "lang": "en",
+      "label": "frage",
+      "kategorie": "aussageform-frage"
+    },
+    {
+      "text": "Das ist doch schon deployed, oder",
+      "kontext": "Ich sehe die neue Maske aber noch nicht.",
+      "lang": "de",
+      "label": "frage",
+      "kategorie": "tag-ohne-zeichen"
+    },
+    {
+      "text": "Wir hatten das letztes Mal vertagt, richtig",
+      "kontext": "Ich finde dazu nichts im Protokoll.",
+      "lang": "de",
+      "label": "frage",
+      "kategorie": "tag-ohne-zeichen"
+    },
+    {
+      "text": "That's the same bug as last month, isn't it",
+      "kontext": "The stack trace looks familiar.",
+      "lang": "en",
+      "label": "frage",
+      "kategorie": "tag-question"
+    },
+    {
+      "text": "You already signed off on that, right",
+      "kontext": "Procurement is waiting on us.",
+      "lang": "en",
+      "label": "frage",
+      "kategorie": "tag-question"
+    },
+    {
+      "text": "Und der Rest?",
+      "kontext": "Zwei von fünf Punkten sind erledigt.",
+      "lang": "de",
+      "label": "frage",
+      "kategorie": "ellipse"
+    },
+    {
+      "text": "Bis wann?",
+      "kontext": "Ich mach das noch fertig.",
+      "lang": "de",
+      "label": "frage",
+      "kategorie": "ellipse"
+    },
+    {
+      "text": "Und wenn nicht?",
+      "kontext": "Der Kunde unterschreibt bis Freitag.",
+      "lang": "de",
+      "label": "frage",
+      "kategorie": "ellipse"
+    },
+    {
+      "text": "In which environment?",
+      "kontext": "It failed again this morning.",
+      "lang": "en",
+      "label": "frage",
+      "kategorie": "ellipse"
+    },
+    {
+      "text": "By when exactly?",
+      "kontext": "I'll have the draft ready.",
+      "lang": "en",
+      "label": "frage",
+      "kategorie": "ellipse"
+    },
+    {
+      "text": "And the licence fees?",
+      "kontext": "Hardware and hosting are in the budget.",
+      "lang": "en",
+      "label": "frage",
+      "kategorie": "ellipse"
+    },
+    {
+      "text": "Könntest du mir sagen, wer das freigegeben hat?",
+      "kontext": "Die Änderung ist ohne Review durchgegangen.",
+      "lang": "de",
+      "label": "frage",
+      "kategorie": "hoeflich"
+    },
+    {
+      "text": "Wäre es möglich, den Bericht heute noch zu bekommen?",
+      "kontext": "Die Geschäftsführung fragt morgen früh danach.",
+      "lang": "de",
+      "label": "frage",
+      "kategorie": "hoeflich"
+    },
+    {
+      "text": "Would you mind telling me who owns that service?",
+      "kontext": "Nobody responded in the channel.",
+      "lang": "en",
+      "label": "frage",
+      "kategorie": "hoeflich"
+    },
+    {
+      "text": "Do you happen to know the ticket number?",
+      "kontext": "I want to link it in the summary.",
+      "lang": "en",
+      "label": "frage",
+      "kategorie": "hoeflich"
+    },
+    {
+      "text": "Was machen wir denn, wenn der Kunde nein sagt?",
+      "kontext": "Wir haben das Angebot gestern rausgeschickt.",
+      "lang": "de",
+      "label": "frage",
+      "kategorie": "rueckfrage"
+    },
+    {
+      "text": "Und wie kommen wir da wieder raus?",
+      "kontext": "Wir sitzen jetzt in dem Vertrag drin.",
+      "lang": "de",
+      "label": "frage",
+      "kategorie": "rueckfrage"
+    },
+    {
+      "text": "How do we even measure that?",
+      "kontext": "The goal is better developer experience.",
+      "lang": "en",
+      "label": "frage",
+      "kategorie": "rueckfrage"
+    },
+    {
+      "text": "Was kostet uns ein Tag Verzug?",
+      "kontext": "Die Konventionalstrafe steht im Vertrag.",
+      "lang": "de",
+      "label": "frage",
+      "kategorie": "direkt-w-frage"
+    },
+    {
+      "text": "Wer schreibt heute das Protokoll?",
+      "kontext": "Wir fangen dann mal an.",
+      "lang": "de",
+      "label": "frage",
+      "kategorie": "direkt-w-frage"
+    },
+    {
+      "text": "Which of the two vendors did we pick in the end?",
+      "kontext": "We compared them back in March.",
+      "lang": "en",
+      "label": "frage",
+      "kategorie": "direkt-w-frage"
+    },
+    {
+      "text": "Steht der Termin mit dem Betriebsrat schon?",
+      "kontext": "Die Betriebsvereinbarung muss vorher durch.",
+      "lang": "de",
+      "label": "frage",
+      "kategorie": "janein-frage"
+    },
+    {
+      "text": "Hast du dazu eine Zahl im Kopf?",
+      "kontext": "Wir müssten den Speicherbedarf abschätzen.",
+      "lang": "de",
+      "label": "frage",
+      "kategorie": "kurzfrage"
+    },
+    {
+      "text": "Ja genau, so hatten wir das besprochen.",
+      "kontext": "Wir nehmen die zweite Variante.",
+      "lang": "de",
+      "label": "keine",
+      "kategorie": "backchannel"
+    },
+    {
+      "text": "Passt, machen wir so.",
+      "kontext": "Dann ziehen wir das auf Donnerstag.",
+      "lang": "de",
+      "label": "keine",
+      "kategorie": "backchannel"
+    },
+    {
+      "text": "Sehe ich genauso, da bin ich voll bei dir.",
+      "kontext": "Der Aufwand steht in keinem Verhältnis.",
+      "lang": "de",
+      "label": "keine",
+      "kategorie": "backchannel"
+    },
+    {
+      "text": "Okay, dann ist das geklärt.",
+      "kontext": "Die Rechtsabteilung hat zugestimmt.",
+      "lang": "de",
+      "label": "keine",
+      "kategorie": "backchannel"
+    },
+    {
+      "text": "Yeah, that works for me.",
+      "kontext": "We could do it right after standup.",
+      "lang": "en",
+      "label": "keine",
+      "kategorie": "backchannel"
+    },
+    {
+      "text": "Right, exactly, same conclusion here.",
+      "kontext": "The bottleneck is the database, not the app.",
+      "lang": "en",
+      "label": "keine",
+      "kategorie": "backchannel"
+    },
+    {
+      "text": "Fine by me, let's do that.",
+      "kontext": "I suggest we postpone the migration.",
+      "lang": "en",
+      "label": "keine",
+      "kategorie": "backchannel"
+    },
+    {
+      "text": "Sounds good, no objections from my side.",
+      "kontext": "We keep the old endpoint for one more release.",
+      "lang": "en",
+      "label": "keine",
+      "kategorie": "backchannel"
+    },
+    {
+      "text": "Ich schick dir die Zahlen nachher rüber.",
+      "kontext": "Ich bräuchte noch den Stand aus dem Controlling.",
+      "lang": "de",
+      "label": "keine",
+      "kategorie": "aussage"
+    },
+    {
+      "text": "Mach ich, bis morgen früh hast du das.",
+      "kontext": "Kannst du das bitte gegenlesen?",
+      "lang": "de",
+      "label": "keine",
+      "kategorie": "aussage"
+    },
+    {
+      "text": "Ich kümmere mich drum, kein Thema.",
+      "kontext": "Da fehlt noch die Freigabe.",
+      "lang": "de",
+      "label": "keine",
+      "kategorie": "aussage"
+    },
+    {
+      "text": "Können wir gerne so machen.",
+      "kontext": "Ich würde das Monitoring vorziehen.",
+      "lang": "de",
+      "label": "keine",
+      "kategorie": "aussage"
+    },
+    {
+      "text": "Kannst du gerne bei mir abladen.",
+      "kontext": "Ich weiß nicht, wohin mit dem Ticket.",
+      "lang": "de",
+      "label": "keine",
+      "kategorie": "aussage"
+    },
+    {
+      "text": "Machen wir, steht bei mir auf der Liste.",
+      "kontext": "Bitte noch die Doku nachziehen.",
+      "lang": "de",
+      "label": "keine",
+      "kategorie": "aussage"
+    },
+    {
+      "text": "I'll take that one.",
+      "kontext": "Someone needs to talk to the vendor.",
+      "lang": "en",
+      "label": "keine",
+      "kategorie": "aussage"
+    },
+    {
+      "text": "I'll get you the numbers after lunch.",
+      "kontext": "We need the throughput figures.",
+      "lang": "en",
+      "label": "keine",
+      "kategorie": "aussage"
+    },
+    {
+      "text": "Will do, and I'll flag it if anything changes.",
+      "kontext": "Keep an eye on the error rate.",
+      "lang": "en",
+      "label": "keine",
+      "kategorie": "aussage"
+    },
+    {
+      "text": "Happy to take that over.",
+      "kontext": "Nobody has picked up the reporting piece.",
+      "lang": "en",
+      "label": "keine",
+      "kategorie": "aussage"
+    },
+    {
+      "text": "Mal überlegen, was da noch offen ist.",
+      "kontext": "Wir gehen die Liste durch.",
+      "lang": "de",
+      "label": "keine",
+      "kategorie": "eingebettetes-fragewort"
+    },
+    {
+      "text": "Moment, wo hatte ich das noch gleich.",
+      "kontext": "Du hattest die Zahl doch notiert.",
+      "lang": "de",
+      "label": "keine",
+      "kategorie": "eingebettetes-fragewort"
+    },
+    {
+      "text": "Ich weiß gerade nicht, wie wir das letztes Mal gelöst haben.",
+      "kontext": "Das Problem hatten wir schon mal.",
+      "lang": "de",
+      "label": "keine",
+      "kategorie": "eingebettetes-fragewort"
+    },
+    {
+      "text": "Keine Ahnung, ob das reicht.",
+      "kontext": "Wir haben zwei Wochen Puffer eingeplant.",
+      "lang": "de",
+      "label": "keine",
+      "kategorie": "eingebettetes-fragewort"
+    },
+    {
+      "text": "Ich frag mich, ob das überhaupt jemand braucht.",
+      "kontext": "Der Export soll auch als XML gehen.",
+      "lang": "de",
+      "label": "keine",
+      "kategorie": "eingebettetes-fragewort"
+    },
+    {
+      "text": "Hmm, das muss ich mir nochmal in Ruhe anschauen.",
+      "kontext": "Hier ist der Vorschlag.",
+      "lang": "de",
+      "label": "keine",
+      "kategorie": "aussage"
+    },
+    {
+      "text": "Warte, ich hab da was im Kopf.",
+      "kontext": "Wir bräuchten einen Namen für den Service.",
+      "lang": "de",
+      "label": "keine",
+      "kategorie": "aussage"
+    },
+    {
+      "text": "Ich überlege gerade, wen wir da noch fragen könnten.",
+      "kontext": "Uns fehlt die Fachkenntnis im Team.",
+      "lang": "de",
+      "label": "keine",
+      "kategorie": "eingebettetes-fragewort"
+    },
+    {
+      "text": "Let me think about that for a second.",
+      "kontext": "We could also buy instead of build.",
+      "lang": "en",
+      "label": "keine",
+      "kategorie": "aussage"
+    },
+    {
+      "text": "I'm not sure what the exact number was.",
+      "kontext": "You mentioned a figure last week.",
+      "lang": "en",
+      "label": "keine",
+      "kategorie": "eingebettetes-fragewort"
+    },
+    {
+      "text": "I don't know whether that ever got merged.",
+      "kontext": "There was a pull request for it.",
+      "lang": "en",
+      "label": "keine",
+      "kategorie": "eingebettetes-fragewort"
+    },
+    {
+      "text": "I wonder if we already paid for that.",
+      "kontext": "The licence shows up in the list.",
+      "lang": "en",
+      "label": "keine",
+      "kategorie": "eingebettetes-fragewort"
+    },
+    {
+      "text": "Hang on, I had a note about this somewhere.",
+      "kontext": "You said there was a constraint.",
+      "lang": "en",
+      "label": "keine",
+      "kategorie": "aussage"
+    },
+    {
+      "text": "Trying to remember how we solved this last time.",
+      "kontext": "Same symptom as in January.",
+      "lang": "en",
+      "label": "keine",
+      "kategorie": "eingebettetes-fragewort"
+    },
+    {
+      "text": "Also Dienstag um zehn, notiert.",
+      "kontext": "Der Termin ist Dienstag zehn Uhr.",
+      "lang": "de",
+      "label": "keine",
+      "kategorie": "backchannel"
+    },
+    {
+      "text": "Donnerstag, okay, das passt.",
+      "kontext": "Ich kann nur am Donnerstag.",
+      "lang": "de",
+      "label": "keine",
+      "kategorie": "backchannel"
+    },
+    {
+      "text": "Drei Wochen, verstanden.",
+      "kontext": "Wir rechnen mit drei Wochen.",
+      "lang": "de",
+      "label": "keine",
+      "kategorie": "backchannel"
+    },
+    {
+      "text": "Zweitausend Nutzer, hab ich.",
+      "kontext": "Betroffen waren rund zweitausend Nutzer.",
+      "lang": "de",
+      "label": "keine",
+      "kategorie": "backchannel"
+    },
+    {
+      "text": "Okay so Thursday at ten, got it.",
+      "kontext": "Let's meet Thursday at ten.",
+      "lang": "en",
+      "label": "keine",
+      "kategorie": "backchannel"
+    },
+    {
+      "text": "Two weeks, understood.",
+      "kontext": "It'll take about two weeks.",
+      "lang": "en",
+      "label": "keine",
+      "kategorie": "backchannel"
+    },
+    {
+      "text": "Right, the second option then.",
+      "kontext": "I'd go with option two.",
+      "lang": "en",
+      "label": "keine",
+      "kategorie": "backchannel"
+    },
+    {
+      "text": "Erstens die Migration, zweitens das Monitoring, drittens die Doku.",
+      "kontext": "Was steht denn noch an?",
+      "lang": "de",
+      "label": "keine",
+      "kategorie": "aussage"
+    },
+    {
+      "text": "Wir haben drei Themen: Budget, Termine, Personal.",
+      "kontext": "Fangen wir an.",
+      "lang": "de",
+      "label": "keine",
+      "kategorie": "aussage"
+    },
+    {
+      "text": "Punkt eins ist erledigt, Punkt zwei läuft, Punkt drei kommt nächste Woche.",
+      "kontext": "Wie ist der Stand der Liste?",
+      "lang": "de",
+      "label": "keine",
+      "kategorie": "aussage"
+    },
+    {
+      "text": "Three things: staffing, budget, timeline.",
+      "kontext": "What's on the agenda?",
+      "lang": "en",
+      "label": "keine",
+      "kategorie": "aussage"
+    },
+    {
+      "text": "First the schema change, then the backfill, then we flip the flag.",
+      "kontext": "How is the rollout sequenced?",
+      "lang": "en",
+      "label": "keine",
+      "kategorie": "aussage"
+    },
+    {
+      "text": "Danke, das hilft mir schon sehr weiter.",
+      "kontext": "Hier ist die Übersicht, die du wolltest.",
+      "lang": "de",
+      "label": "keine",
+      "kategorie": "hoeflich"
+    },
+    {
+      "text": "Vielen Dank fürs Vorbereiten, sieht gut aus.",
+      "kontext": "Ich hab die Folien zusammengestellt.",
+      "lang": "de",
+      "label": "keine",
+      "kategorie": "hoeflich"
+    },
+    {
+      "text": "Wäre schön, wenn wir das bis Freitag hätten.",
+      "kontext": "Der Bericht ist noch nicht fertig.",
+      "lang": "de",
+      "label": "keine",
+      "kategorie": "hoeflich"
+    },
+    {
+      "text": "Es wäre gut, das nochmal gegenzulesen.",
+      "kontext": "Der Text geht morgen raus.",
+      "lang": "de",
+      "label": "keine",
+      "kategorie": "hoeflich"
+    },
+    {
+      "text": "Wäre mir lieber, wir warten noch einen Tag.",
+      "kontext": "Wir könnten heute Abend deployen.",
+      "lang": "de",
+      "label": "keine",
+      "kategorie": "hoeflich"
+    },
+    {
+      "text": "Thanks, that's really helpful.",
+      "kontext": "Here's the breakdown you asked for.",
+      "lang": "en",
+      "label": "keine",
+      "kategorie": "hoeflich"
+    },
+    {
+      "text": "It would be great to have that by Friday.",
+      "kontext": "The report is still open.",
+      "lang": "en",
+      "label": "keine",
+      "kategorie": "hoeflich"
+    },
+    {
+      "text": "Would be nice to close that out this week.",
+      "kontext": "The ticket has been open for a while.",
+      "lang": "en",
+      "label": "keine",
+      "kategorie": "hoeflich"
+    },
+    {
+      "text": "Appreciate you jumping in on that.",
+      "kontext": "I picked up the incident yesterday.",
+      "lang": "en",
+      "label": "keine",
+      "kategorie": "hoeflich"
+    },
+    {
+      "text": "Wenn das nicht klappt, machen wir es manuell.",
+      "kontext": "Der Import ist wackelig.",
+      "lang": "de",
+      "label": "keine",
+      "kategorie": "aussage"
+    },
+    {
+      "text": "Falls der Kunde ablehnt, haben wir immer noch Plan B.",
+      "kontext": "Das Angebot ist raus.",
+      "lang": "de",
+      "label": "keine",
+      "kategorie": "aussage"
+    },
+    {
+      "text": "Sollte das schiefgehen, rollen wir einfach zurück.",
+      "kontext": "Wir deployen heute Abend.",
+      "lang": "de",
+      "label": "keine",
+      "kategorie": "aussage"
+    },
+    {
+      "text": "Wäre der Import gestern durchgelaufen, hätten wir das Problem nicht.",
+      "kontext": "Wir hängen jetzt einen Tag hinterher.",
+      "lang": "de",
+      "label": "keine",
+      "kategorie": "aussage"
+    },
+    {
+      "text": "Hätten wir das früher gewusst, hätten wir anders geplant.",
+      "kontext": "Die Anforderung kam erst gestern.",
+      "lang": "de",
+      "label": "keine",
+      "kategorie": "aussage"
+    },
+    {
+      "text": "If the numbers hold, we're fine.",
+      "kontext": "Traffic is up twenty percent.",
+      "lang": "en",
+      "label": "keine",
+      "kategorie": "aussage"
+    },
+    {
+      "text": "Should that fail, we roll back.",
+      "kontext": "The deploy is scheduled for tonight.",
+      "lang": "en",
+      "label": "keine",
+      "kategorie": "aussage"
+    },
+    {
+      "text": "Had we known that earlier, we'd have planned differently.",
+      "kontext": "The requirement changed last week.",
+      "lang": "en",
+      "label": "keine",
+      "kategorie": "aussage"
+    },
+    {
+      "text": "Unless someone objects, that's the plan.",
+      "kontext": "We go with the phased rollout.",
+      "lang": "en",
+      "label": "keine",
+      "kategorie": "aussage"
+    },
+    {
+      "text": "Er hat gefragt, wann wir liefern können.",
+      "kontext": "Der Kunde hat gestern angerufen.",
+      "lang": "de",
+      "label": "keine",
+      "kategorie": "indirekte-rede"
+    },
+    {
+      "text": "Sie wollte wissen, wer das verantwortet.",
+      "kontext": "Die Revision war bei uns.",
+      "lang": "de",
+      "label": "keine",
+      "kategorie": "indirekte-rede"
+    },
+    {
+      "text": "Der Kunde hat gefragt, ob das im Preis drin ist.",
+      "kontext": "Es ging um das Zusatzmodul.",
+      "lang": "de",
+      "label": "keine",
+      "kategorie": "indirekte-rede"
+    },
+    {
+      "text": "Im Ticket steht die Frage, warum das so lange dauert.",
+      "kontext": "Der Nutzer hat sich beschwert.",
+      "lang": "de",
+      "label": "keine",
+      "kategorie": "indirekte-rede"
+    },
+    {
+      "text": "Die Rechtsabteilung wollte wissen, wo die Daten liegen.",
+      "kontext": "Es geht um die Auftragsverarbeitung.",
+      "lang": "de",
+      "label": "keine",
+      "kategorie": "indirekte-rede"
+    },
+    {
+      "text": "She asked how long the migration takes.",
+      "kontext": "I spoke to the product owner.",
+      "lang": "en",
+      "label": "keine",
+      "kategorie": "indirekte-rede"
+    },
+    {
+      "text": "They wanted to know if we support SSO.",
+      "kontext": "The security review came back.",
+      "lang": "en",
+      "label": "keine",
+      "kategorie": "indirekte-rede"
+    },
+    {
+      "text": "The customer asked who signs off on this.",
+      "kontext": "There was a call this morning.",
+      "lang": "en",
+      "label": "keine",
+      "kategorie": "indirekte-rede"
+    },
+    {
+      "text": "Legal came back asking whether we store any of that.",
+      "kontext": "We sent them the data flow diagram.",
+      "lang": "en",
+      "label": "keine",
+      "kategorie": "indirekte-rede"
+    },
+    {
+      "text": "Das ist, weißt du, historisch so gewachsen.",
+      "kontext": "Warum sind da drei Tabellen für dasselbe?",
+      "lang": "de",
+      "label": "keine",
+      "kategorie": "filler-aussage"
+    },
+    {
+      "text": "Das ist so ein bisschen, na ja, Geschmackssache.",
+      "kontext": "Welchen Stil nehmen wir?",
+      "lang": "de",
+      "label": "keine",
+      "kategorie": "filler-aussage"
+    },
+    {
+      "text": "Ich mein, das ist ja jetzt nicht neu.",
+      "kontext": "Die Beschwerden häufen sich.",
+      "lang": "de",
+      "label": "keine",
+      "kategorie": "filler-aussage"
+    },
+    {
+      "text": "Wir machen das halt so, seit Jahren schon.",
+      "kontext": "Das wirkt umständlich.",
+      "lang": "de",
+      "label": "keine",
+      "kategorie": "filler-aussage"
+    },
+    {
+      "text": "It's, you know, kind of legacy at this point.",
+      "kontext": "Why is that service written in Perl?",
+      "lang": "en",
+      "label": "keine",
+      "kategorie": "filler-aussage"
+    },
+    {
+      "text": "I mean, that's basically what we do today.",
+      "kontext": "We could cache the responses.",
+      "lang": "en",
+      "label": "keine",
+      "kategorie": "filler-aussage"
+    },
+    {
+      "text": "So yeah, that's roughly where we are.",
+      "kontext": "Give us a quick status.",
+      "lang": "en",
+      "label": "keine",
+      "kategorie": "filler-aussage"
+    },
+    {
+      "text": "Was für ein Chaos war das gestern.",
+      "kontext": "Der Ausfall hat vier Stunden gedauert.",
+      "lang": "de",
+      "label": "keine",
+      "kategorie": "ausruf"
+    },
+    {
+      "text": "Wie gut, dass wir das rechtzeitig gemerkt haben.",
+      "kontext": "Die Zertifikate wären morgen abgelaufen.",
+      "lang": "de",
+      "label": "keine",
+      "kategorie": "ausruf"
+    },
+    {
+      "text": "Was für ein Aufwand für so eine Kleinigkeit.",
+      "kontext": "Für das Feld mussten drei Systeme angefasst werden.",
+      "lang": "de",
+      "label": "keine",
+      "kategorie": "ausruf"
+    },
+    {
+      "text": "What a mess that release was.",
+      "kontext": "We had to roll back twice.",
+      "lang": "en",
+      "label": "keine",
+      "kategorie": "ausruf"
+    },
+    {
+      "text": "How that ever passed review is beyond me.",
+      "kontext": "The function is four hundred lines long.",
+      "lang": "en",
+      "label": "keine",
+      "kategorie": "ausruf"
+    },
+    {
+      "text": "Hätte ich auch nicht gedacht.",
+      "kontext": "Der alte Server läuft immer noch.",
+      "lang": "de",
+      "label": "keine",
+      "kategorie": "aussage"
+    },
+    {
+      "text": "Kann sein, muss aber nicht.",
+      "kontext": "Vielleicht liegt es am Netzwerk.",
+      "lang": "de",
+      "label": "keine",
+      "kategorie": "aussage"
+    },
+    {
+      "text": "Bin ich dabei.",
+      "kontext": "Wir treffen uns morgen um neun.",
+      "lang": "de",
+      "label": "keine",
+      "kategorie": "aussage"
+    },
+    {
+      "text": "Hab ich noch nicht gesehen.",
+      "kontext": "Ich hab dir das Dokument geschickt.",
+      "lang": "de",
+      "label": "keine",
+      "kategorie": "aussage"
+    },
+    {
+      "text": "War gestern schon so.",
+      "kontext": "Die Antwortzeiten sind schlecht.",
+      "lang": "de",
+      "label": "keine",
+      "kategorie": "aussage"
+    },
+    {
+      "text": "Muss ich nochmal prüfen.",
+      "kontext": "Stimmt die Zahl so?",
+      "lang": "de",
+      "label": "keine",
+      "kategorie": "aussage"
+    },
+    {
+      "text": "Geht klar.",
+      "kontext": "Bitte bis Freitag.",
+      "lang": "de",
+      "label": "keine",
+      "kategorie": "aussage"
+    },
+    {
+      "text": "Stimmt, das hatten wir übersehen.",
+      "kontext": "Der Feiertag fällt genau in die Woche.",
+      "lang": "de",
+      "label": "keine",
+      "kategorie": "aussage"
+    },
+    {
+      "text": "Das ist der Grund, warum wir das umgebaut haben.",
+      "kontext": "Die alte Lösung skalierte nicht.",
+      "lang": "de",
+      "label": "keine",
+      "kategorie": "eingebettetes-fragewort"
+    },
+    {
+      "text": "Der Punkt, wo es hakt, ist die Authentifizierung.",
+      "kontext": "Wo genau bricht es ab?",
+      "lang": "de",
+      "label": "keine",
+      "kategorie": "eingebettetes-fragewort"
+    },
+    {
+      "text": "Ich zeig dir gleich, wie das aussieht.",
+      "kontext": "Ich kann mir das schwer vorstellen.",
+      "lang": "de",
+      "label": "keine",
+      "kategorie": "eingebettetes-fragewort"
+    },
+    {
+      "text": "Wir dokumentieren, wer wann was geändert hat.",
+      "kontext": "Die Revision will Nachvollziehbarkeit.",
+      "lang": "de",
+      "label": "keine",
+      "kategorie": "eingebettetes-fragewort"
+    },
+    {
+      "text": "That's why we moved to the new queue.",
+      "kontext": "The old one dropped messages.",
+      "lang": "en",
+      "label": "keine",
+      "kategorie": "eingebettetes-fragewort"
+    },
+    {
+      "text": "The place where it breaks is the token refresh.",
+      "kontext": "Users get logged out randomly.",
+      "lang": "en",
+      "label": "keine",
+      "kategorie": "eingebettetes-fragewort"
+    },
+    {
+      "text": "I'll show you how it looks in a second.",
+      "kontext": "Hard to picture from the description.",
+      "lang": "en",
+      "label": "keine",
+      "kategorie": "eingebettetes-fragewort"
+    },
+    {
+      "text": "We log who changed what and when.",
+      "kontext": "Audit wants traceability.",
+      "lang": "en",
+      "label": "keine",
+      "kategorie": "eingebettetes-fragewort"
+    },
+    {
+      "text": "Schreib das bitte ins Protokoll.",
+      "kontext": "Der Beschluss steht.",
+      "lang": "de",
+      "label": "keine",
+      "kategorie": "aussage"
+    },
+    {
+      "text": "Lass uns das nächste Woche vertiefen.",
+      "kontext": "Das Thema ist zu groß für heute.",
+      "lang": "de",
+      "label": "keine",
+      "kategorie": "aussage"
+    },
+    {
+      "text": "Nehmt das bitte mit ins Team.",
+      "kontext": "Die neue Regel gilt ab Montag.",
+      "lang": "de",
+      "label": "keine",
+      "kategorie": "aussage"
+    },
+    {
+      "text": "Let's park that for now.",
+      "kontext": "We're running out of time.",
+      "lang": "en",
+      "label": "keine",
+      "kategorie": "aussage"
+    },
+    {
+      "text": "Put that on the agenda for next time.",
+      "kontext": "We didn't get to the roadmap.",
+      "lang": "en",
+      "label": "keine",
+      "kategorie": "aussage"
+    },
+    {
+      "text": "Keep an eye on the error rate today.",
+      "kontext": "We deployed an hour ago.",
+      "lang": "en",
+      "label": "keine",
+      "kategorie": "aussage"
+    },
+    {
+      "text": "Ich muss gleich in den nächsten Termin.",
+      "kontext": "Wir sind fast durch.",
+      "lang": "de",
+      "label": "keine",
+      "kategorie": "meta"
+    },
+    {
+      "text": "Kurz zur Orientierung: wir sind bei Punkt drei.",
+      "kontext": "Ich war eben kurz raus.",
+      "lang": "de",
+      "label": "keine",
+      "kategorie": "meta"
+    },
+    {
+      "text": "Ich hab noch fünf Minuten.",
+      "kontext": "Passt es zeitlich noch?",
+      "lang": "de",
+      "label": "keine",
+      "kategorie": "meta"
+    },
+    {
+      "text": "My connection is a bit choppy, one moment.",
+      "kontext": "You're breaking up.",
+      "lang": "en",
+      "label": "keine",
+      "kategorie": "meta"
+    },
+    {
+      "text": "Sorry, I was on mute.",
+      "kontext": "We couldn't hear you.",
+      "lang": "en",
+      "label": "keine",
+      "kategorie": "meta"
+    },
+    {
+      "text": "Let's give it another minute for the others.",
+      "kontext": "Two people are still missing.",
+      "lang": "en",
+      "label": "keine",
+      "kategorie": "meta"
+    },
+    {
+      "text": "Der Durchsatz liegt bei etwa zwölfhundert pro Minute.",
+      "kontext": "Wie schnell ist das System?",
+      "lang": "de",
+      "label": "keine",
+      "kategorie": "aussage"
+    },
+    {
+      "text": "Wir sind bei sechsundachtzig Prozent Abdeckung.",
+      "kontext": "Wie steht es um die Tests?",
+      "lang": "de",
+      "label": "keine",
+      "kategorie": "aussage"
+    },
+    {
+      "text": "Latency is around two hundred milliseconds at the median.",
+      "kontext": "How fast is it?",
+      "lang": "en",
+      "label": "keine",
+      "kategorie": "aussage"
+    },
+    {
+      "text": "We're at eighty-six percent coverage.",
+      "kontext": "Where are we on tests?",
+      "lang": "en",
+      "label": "keine",
+      "kategorie": "aussage"
+    },
+    {
+      "text": "Und dann die",
+      "kontext": "Wir fangen mit der Migration an.",
+      "lang": "de",
+      "label": "unvollstaendig",
+      "kategorie": "fragment"
+    },
+    {
+      "text": "Also wenn wir jetzt",
+      "kontext": "Zwei Optionen stehen im Raum.",
+      "lang": "de",
+      "label": "unvollstaendig",
+      "kategorie": "fragment"
+    },
+    {
+      "text": "Wie viele",
+      "kontext": "Wir haben die Lizenzen gezählt.",
+      "lang": "de",
+      "label": "unvollstaendig",
+      "kategorie": "fragment"
+    },
+    {
+      "text": "Was ist mit",
+      "kontext": "Alle Punkte sind durch.",
+      "lang": "de",
+      "label": "unvollstaendig",
+      "kategorie": "fragment"
+    },
+    {
+      "text": "Ob das überhaupt",
+      "kontext": "Der Vorschlag liegt vor.",
+      "lang": "de",
+      "label": "unvollstaendig",
+      "kategorie": "fragment"
+    },
+    {
+      "text": "Können wir das",
+      "kontext": "Der Termin ist eng.",
+      "lang": "de",
+      "label": "unvollstaendig",
+      "kategorie": "fragment"
+    },
+    {
+      "text": "Ich hätte da noch",
+      "kontext": "Sonst noch etwas?",
+      "lang": "de",
+      "label": "unvollstaendig",
+      "kategorie": "fragment"
+    },
+    {
+      "text": "Der Punkt ist",
+      "kontext": "Wir drehen uns im Kreis.",
+      "lang": "de",
+      "label": "unvollstaendig",
+      "kategorie": "fragment"
+    },
+    {
+      "text": "Weil wir ja",
+      "kontext": "Warum geht das nicht?",
+      "lang": "de",
+      "label": "unvollstaendig",
+      "kategorie": "fragment"
+    },
+    {
+      "text": "Das heißt also",
+      "kontext": "Die Zahlen sind eindeutig.",
+      "lang": "de",
+      "label": "unvollstaendig",
+      "kategorie": "fragment"
+    },
+    {
+      "text": "Vielleicht sollten wir",
+      "kontext": "Es hakt an mehreren Stellen.",
+      "lang": "de",
+      "label": "unvollstaendig",
+      "kategorie": "fragment"
+    },
+    {
+      "text": "And then the",
+      "kontext": "We start with the migration.",
+      "lang": "en",
+      "label": "unvollstaendig",
+      "kategorie": "fragment"
+    },
+    {
+      "text": "So if we",
+      "kontext": "There are two options.",
+      "lang": "en",
+      "label": "unvollstaendig",
+      "kategorie": "fragment"
+    },
+    {
+      "text": "How many of the",
+      "kontext": "We counted the licences.",
+      "lang": "en",
+      "label": "unvollstaendig",
+      "kategorie": "fragment"
+    },
+    {
+      "text": "What about the",
+      "kontext": "Everything else is covered.",
+      "lang": "en",
+      "label": "unvollstaendig",
+      "kategorie": "fragment"
+    },
+    {
+      "text": "Whether that even",
+      "kontext": "The proposal is on the table.",
+      "lang": "en",
+      "label": "unvollstaendig",
+      "kategorie": "fragment"
+    },
+    {
+      "text": "Could we maybe",
+      "kontext": "The deadline is tight.",
+      "lang": "en",
+      "label": "unvollstaendig",
+      "kategorie": "fragment"
+    },
+    {
+      "text": "I was going to",
+      "kontext": "Anything else?",
+      "lang": "en",
+      "label": "unvollstaendig",
+      "kategorie": "fragment"
+    },
+    {
+      "text": "The thing is",
+      "kontext": "We keep going in circles.",
+      "lang": "en",
+      "label": "unvollstaendig",
+      "kategorie": "fragment"
+    },
+    {
+      "text": "Because we already",
+      "kontext": "Why is that not possible?",
+      "lang": "en",
+      "label": "unvollstaendig",
+      "kategorie": "fragment"
+    },
+    {
+      "text": "Which means that",
+      "kontext": "The numbers are clear.",
+      "lang": "en",
+      "label": "unvollstaendig",
+      "kategorie": "fragment"
+    },
+    {
+      "text": "Maybe we should",
+      "kontext": "Several things are stuck.",
+      "lang": "en",
+      "label": "unvollstaendig",
+      "kategorie": "fragment"
+    }
+  ]
+}

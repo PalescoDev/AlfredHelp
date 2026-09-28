@@ -1,0 +1,22 @@
+Frageerkennung – voller Pfad (Heuristik + gemma3:4b)
+Beispiele        : 241
+Sofort-Stufe     : 49 (0 ms)
+Modell-Stufe     : 105
+─────────────────────────────────────
+Precision        : 0.973
+Recall           : 0.980
+False Positives  : 4
+False Negatives  : 3
+Latenz Median    : 312 ms
+Latenz p90       : 373 ms
+
+FP:
+  · Das ist genau das, was du gesucht hast.
+  · Ich schicke dir gleich, was wir dazu haben.
+  · That is exactly what you asked for last week.
+  · Tell you what, we can take that offline.
+
+FN:
+  · Das war mit dem Kunden so abgesprochen, korrekt
+  · Und danach
+  · And the cost

@@ -1,0 +1,34 @@
+# Build
+.build/
+/Archive/
+# Mit führendem Schrägstrich, sonst greift das Muster auch auf
+# `Resources/dist/` – und genau dort liegt die Nutzerdokumentation, die
+# build.sh dem Bündel beilegt. Ohne sie bricht der Bau eines frischen Klons ab.
+/dist/
+/Richtig/dist/
+*.xcodeproj
+*.xcworkspace
+.swiftpm/
+DerivedData/
+
+# macOS
+.DS_Store
+._*
+
+# Messläufe – die Skripte gehören ins Repo, ihre Ergebnisse nicht
+Benchmarks/results.json
+Benchmarks/__pycache__/
+Richtig/Benchmarks/results.json
+Richtig/Benchmarks/__pycache__/
+*.pyc
+
+# Lokale Werkzeugkonfiguration – gehört auf diesen Rechner, nicht ins Repo
+.claude/settings.local.json
+
+# Signatur und Zugangsdaten dürfen nie eingecheckt werden
+*.p12
+*.p8
+*.cer
+*.mobileprovision
+.env
+.env.*

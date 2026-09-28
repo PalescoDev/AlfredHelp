@@ -1,0 +1,300 @@
+name: Veröffentlichung
+
+# Läuft auf einen Tag `v*` hin und legt einen ENTWURF an. Veröffentlicht wird
+# von Hand – so ist zwischen Bauen und Freigeben immer noch ein Blick möglich.
+on:
+  push:
+    tags: ['v*']
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Fassung, z. B. v1.0.0'
+        required: true
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    name: Archiv bauen und prüfen
+    runs-on: macos-latest
+    outputs:
+      tag: ${{ steps.version.outputs.tag }}
+      package: ${{ steps.package.outputs.name }}
+      commit: ${{ steps.tag_commit.outputs.commit }}
+
+    steps:
+      - name: Manuellen Start auf passenden Release-Tag begrenzen
+        if: github.event_name == 'workflow_dispatch'
+        env:
+          RELEASE_INPUT: ${{ github.event.inputs.version }}
+          RELEASE_REF: ${{ github.ref }}
+          RELEASE_REF_TYPE: ${{ github.ref_type }}
+        run: |
+          if [[ "$RELEASE_REF_TYPE" != "tag" || "$RELEASE_REF" != "refs/tags/$RELEASE_INPUT" ]]; then
+            echo "::error::Der manuelle Start ist nur auf dem vorhandenen Tag möglich, der genau zur Fassung passt."
+            exit 1
+          fi
+
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Fassung bestimmen
+        id: version
+        env:
+          VERSION_INPUT: ${{ github.event.inputs.version }}
+          REF_NAME: ${{ github.ref_name }}
+        run: |
+          if [ -n "$VERSION_INPUT" ]; then
+            TAG="$VERSION_INPUT"
+          else
+            TAG="$REF_NAME"
+          fi
+          if ! [[ "$TAG" =~ ^v(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)$ ]]; then
+            echo "::error::Ungültige Fassung (erwartet: v1.2.3)."
+            exit 1
+          fi
+          printf 'tag=%s\n' "$TAG" >> "$GITHUB_OUTPUT"
+
+      - name: Tag-Commit gehört zur Hauptfassung
+        id: tag_commit
+        env:
+          RELEASE_TAG: ${{ steps.version.outputs.tag }}
+        run: |
+          TAG_COMMIT="$(git rev-parse "${RELEASE_TAG}^{commit}")"
+          CHECKED_OUT_COMMIT="$(git rev-parse HEAD)"
+          if [ "$TAG_COMMIT" != "$CHECKED_OUT_COMMIT" ]; then
+            echo "::error::Der Release-Tag hat sich während des Starts geändert. Starte den Workflow erneut."
+            exit 1
+          fi
+          if ! git merge-base --is-ancestor "$TAG_COMMIT" origin/main; then
+            echo "::error::Der Release-Tag muss auf einem Commit von main liegen."
+            exit 1
+          fi
+          printf 'commit=%s\n' "$TAG_COMMIT" >> "$GITHUB_OUTPUT"
+
+      - name: Fassung prüfen
+        id: bundle-version
+        env:
+          RELEASE_TAG: ${{ steps.version.outputs.tag }}
+        run: |
+          if ! [[ "$RELEASE_TAG" =~ ^v(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)$ ]]; then
+            echo "::error::Ungültige Fassung '$RELEASE_TAG' (erwartet: v1.2.3)."
+            exit 1
+          fi
+          VERSION="${RELEASE_TAG#v}"
+          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+
+      - name: Quellversion mit Tag abgleichen
+        env:
+          RELEASE_TAG: ${{ steps.version.outputs.tag }}
+        run: |
+          TAG_VERSION="${RELEASE_TAG#v}"
+          SOURCE_VERSION="$(/usr/libexec/PlistBuddy -c 'Print :CFBundleShortVersionString' Richtig/Resources/Info.plist)"
+          if [[ "$SOURCE_VERSION" =~ ^(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)$ ]]; then
+            SOURCE_VERSION="${BASH_REMATCH[1]}.${BASH_REMATCH[2]}.0"
+          fi
+          if ! [[ "$SOURCE_VERSION" =~ ^(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)$ ]]; then
+            echo "::error::Die Quellversion in Richtig/Resources/Info.plist ist keine gültige SemVer-Fassung: $SOURCE_VERSION"
+            exit 1
+          fi
+          if [ "$SOURCE_VERSION" != "$TAG_VERSION" ]; then
+            echo "::error::Tag $RELEASE_TAG und Quellversion $SOURCE_VERSION stimmen nicht überein. Nutze zuerst PalescoDev/VERSION_VORBEREITEN.sh."
+            exit 1
+          fi
+
+      - name: Bauen mit Warnungen als Fehler
+        run: cd Richtig && swift build -c release --product AlfredHelp -Xswiftc -warnings-as-errors
+
+      - name: Testen
+        run: cd Richtig && swift test
+
+      - name: Signatur- und Notarisierungsdaten prüfen
+        env:
+          CERT_P12: ${{ secrets.MACOS_CERTIFICATE_P12 }}
+          CERT_PASSWORD: ${{ secrets.MACOS_CERTIFICATE_PASSWORD }}
+          SIGNING_IDENTITY: ${{ secrets.MACOS_SIGNING_IDENTITY }}
+          NOTARY_KEY: ${{ secrets.NOTARY_API_KEY }}
+          NOTARY_KEY_ID: ${{ secrets.NOTARY_API_KEY_ID }}
+          NOTARY_ISSUER: ${{ secrets.NOTARY_API_ISSUER }}
+        run: |
+          for NAME in CERT_P12 CERT_PASSWORD SIGNING_IDENTITY NOTARY_KEY NOTARY_KEY_ID NOTARY_ISSUER; do
+            if [ -z "${!NAME}" ]; then
+              echo "::error::$NAME fehlt; ein offizielles Archiv darf weder unsigniert noch unnotarisiert entstehen."
+              exit 1
+            fi
+          done
+
+      # Offizielle Archive werden immer mit Developer ID signiert. Der
+      # Vorabcheck oben verhindert einen stillen Ad-hoc-Fallback.
+      - name: Signaturidentität einspielen
+        env:
+          CERT_P12: ${{ secrets.MACOS_CERTIFICATE_P12 }}
+          CERT_PASSWORD: ${{ secrets.MACOS_CERTIFICATE_PASSWORD }}
+        run: |
+          KEYCHAIN="$RUNNER_TEMP/build.keychain"
+          KEYCHAIN_PASSWORD="$(uuidgen)"
+          security create-keychain -p "$KEYCHAIN_PASSWORD" "$KEYCHAIN"
+          security set-keychain-settings -lut 21600 "$KEYCHAIN"
+          security unlock-keychain -p "$KEYCHAIN_PASSWORD" "$KEYCHAIN"
+          echo "$CERT_P12" | base64 --decode > "$RUNNER_TEMP/cert.p12"
+          security import "$RUNNER_TEMP/cert.p12" -k "$KEYCHAIN" \
+            -P "$CERT_PASSWORD" -T /usr/bin/codesign
+          security set-key-partition-list -S apple-tool:,apple: \
+            -k "$KEYCHAIN_PASSWORD" "$KEYCHAIN" >/dev/null
+          security list-keychains -d user -s "$KEYCHAIN" login.keychain-db
+          rm -f "$RUNNER_TEMP/cert.p12"
+
+      - name: Bauen
+        env:
+          CODESIGN_IDENTITY: ${{ secrets.MACOS_SIGNING_IDENTITY }}
+          CODE_SIGN_TIMESTAMP: '1'
+          APP_VERSION: ${{ steps.bundle-version.outputs.version }}
+          APP_BUILD: ${{ github.run_number }}
+        run: cd Richtig && ./build.sh
+
+      - name: Bündelfassung prüfen
+        env:
+          EXPECTED_VERSION: ${{ steps.bundle-version.outputs.version }}
+          EXPECTED_BUILD: ${{ github.run_number }}
+        run: |
+          test "$(defaults read "$PWD/Richtig/dist/AlfredHelp.app/Contents/Info" CFBundleShortVersionString)" = \
+            "$EXPECTED_VERSION"
+          test "$(defaults read "$PWD/Richtig/dist/AlfredHelp.app/Contents/Info" CFBundleVersion)" = \
+            "$EXPECTED_BUILD"
+
+      - name: Notarisieren
+        env:
+          NOTARY_KEY: ${{ secrets.NOTARY_API_KEY }}
+          NOTARY_KEY_ID: ${{ secrets.NOTARY_API_KEY_ID }}
+          NOTARY_ISSUER: ${{ secrets.NOTARY_API_ISSUER }}
+        run: |
+          echo "$NOTARY_KEY" | base64 --decode > "$RUNNER_TEMP/notary.p8"
+          ditto -c -k --keepParent Richtig/dist/AlfredHelp.app "$RUNNER_TEMP/notarize.zip"
+          xcrun notarytool submit "$RUNNER_TEMP/notarize.zip" \
+            --key "$RUNNER_TEMP/notary.p8" \
+            --key-id "$NOTARY_KEY_ID" \
+            --issuer "$NOTARY_ISSUER" \
+            --wait
+          # Der Heftzettel gehört ins Bündel, damit es auch offline durchgeht.
+          xcrun stapler staple Richtig/dist/AlfredHelp.app
+          rm -f "$RUNNER_TEMP/notary.p8"
+
+      - name: Archiv schnüren
+        id: package
+        env:
+          RELEASE_TAG: ${{ steps.version.outputs.tag }}
+        run: |
+          NAME="AlfredHelp-$RELEASE_TAG"
+          # `ditto` statt `zip`: es erhält Rechte und erweiterte Attribute, und
+          # nur damit übersteht die Signatur den Weg über das Netz.
+          ditto -c -k --sequesterRsrc --keepParent Richtig/dist "$NAME.zip"
+          shasum -a 256 "$NAME.zip" > "$NAME.zip.sha256"
+          echo "name=$NAME" >> "$GITHUB_OUTPUT"
+          cat "$NAME.zip.sha256"
+
+      - name: Signatur des Archivs nachweisen
+        env:
+          PACKAGE_NAME: ${{ steps.package.outputs.name }}
+        run: |
+          VERIFY_DIR="$RUNNER_TEMP/archive-verification"
+          mkdir -p "$VERIFY_DIR"
+          ditto -x -k "$PACKAGE_NAME.zip" "$VERIFY_DIR"
+          APP="$VERIFY_DIR/dist/AlfredHelp.app"
+          codesign --verify --deep --strict --verbose=2 "$APP"
+          spctl --assess --type execute -vv "$APP"
+          xcrun stapler validate "$APP"
+
+      # Release-Notizen müssen vorab auf Deutsch fertiggestellt sein. So wird
+      # kein automatisch erzeugter, möglicherweise englischer Text veröffentlicht.
+      - name: Veröffentlichungstext suchen
+        id: notes
+        env:
+          RELEASE_TAG: ${{ steps.version.outputs.tag }}
+        run: |
+          FILE="Richtig/GitHub/Release/Release-Notes-$RELEASE_TAG.md"
+          if [ ! -f "$FILE" ]; then
+            echo "::error::$FILE fehlt. Vor dem Tag muss eine deutsche Veröffentlichungsnotiz angelegt werden."
+            exit 1
+          fi
+          EXPECTED_HEADING="# AlfredHelp ${RELEASE_TAG#v}"
+          if ! grep -Fxq "$EXPECTED_HEADING" "$FILE"; then
+            echo "::error::$FILE muss mit '$EXPECTED_HEADING' beginnen. Die Notiz passt nicht zur Fassung $RELEASE_TAG."
+            exit 1
+          fi
+          if grep -Eq '\{\{[^}]+\}\}|TODO|PLATZHALTER' "$FILE"; then
+            echo "::error::$FILE enthält noch Platzhalter. Vor dem Release bitte den Veröffentlichungstext fertigstellen."
+            exit 1
+          fi
+          echo "path=$FILE" >> "$GITHUB_OUTPUT"
+
+      - name: Release-Notiz bereitstellen
+        env:
+          RELEASE_NOTES_PATH: ${{ steps.notes.outputs.path }}
+        run: cp "$RELEASE_NOTES_PATH" release-notes.md
+
+      - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
+        with:
+          name: release-assets
+          path: |
+            ${{ steps.package.outputs.name }}.zip
+            ${{ steps.package.outputs.name }}.zip.sha256
+            release-notes.md
+          if-no-files-found: error
+          retention-days: 1
+
+  publish:
+    name: Geprüften Entwurf anlegen
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          ref: refs/heads/main
+          fetch-depth: 0
+          persist-credentials: true
+
+      - uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8
+        with:
+          name: release-assets
+          path: release-assets
+
+      - name: Tag und Hauptfassung erneut prüfen
+        env:
+          EXPECTED_COMMIT: ${{ needs.build.outputs.commit }}
+          RELEASE_TAG: ${{ needs.build.outputs.tag }}
+        run: |
+          git fetch --force --no-tags origin \
+            "refs/tags/$RELEASE_TAG:refs/tags/$RELEASE_TAG" \
+            "+refs/heads/main:refs/remotes/origin/main"
+          TAG_COMMIT="$(git rev-parse "refs/tags/$RELEASE_TAG^{commit}")"
+          if [ "$TAG_COMMIT" != "$EXPECTED_COMMIT" ]; then
+            echo "::error::Der Release-Tag zeigt nicht mehr auf den geprüften Commit. Der Entwurf wird nicht angelegt."
+            exit 1
+          fi
+          if ! git merge-base --is-ancestor "$TAG_COMMIT" origin/main; then
+            echo "::error::Der geprüfte Release-Commit gehört nicht mehr zur aktuellen Hauptfassung."
+            exit 1
+          fi
+
+      - name: Prüfsumme des Archivs prüfen
+        env:
+          PACKAGE_NAME: ${{ needs.build.outputs.package }}
+        run: cd release-assets && sha256sum --check "$PACKAGE_NAME.zip.sha256"
+
+      - name: Entwurf anlegen
+        uses: softprops/action-gh-release@3bb12739c298aeb8a4eeaf626c5b8d85266b0e65 # v2
+        with:
+          token: ${{ github.token }}
+          draft: true
+          name: ${{ needs.build.outputs.tag }}
+          tag_name: ${{ needs.build.outputs.tag }}
+          body_path: release-assets/release-notes.md
+          generate_release_notes: false
+          files: |
+            release-assets/${{ needs.build.outputs.package }}.zip
+            release-assets/${{ needs.build.outputs.package }}.zip.sha256

@@ -1,0 +1,53 @@
+Frageerkennung – Modellstufe (gemma3:4b, 3 Läufe, Variante „final-V3“)
+Beispiele gesamt : 241
+Sofort-Stufe     : 49
+Modell-Stufe     : 105   (davon Gold=frage: 100)
+─────────────────────────────────────
+Nur Modellstufe
+  Precision      : 1.000  (min 1.000 / max 1.000)
+  Recall         : 0.980  (min 0.980 / max 0.980)
+  False Positives: 0.0
+  False Negatives: 2.0
+Voller Pfad (Heuristik + Modell)
+  Precision      : 1.000  (min 1.000 / max 1.000)
+  Recall         : 0.987  (min 0.987 / max 0.987)
+Latenz bis zur Entscheidung
+  Median         : 328 ms
+  p90            : 394 ms
+Stabilität
+  in allen Läufen falsch : 2
+  zwischen Läufen kippend: 0
+
+Durchgehend falsch:
+  · [tag-ohne-zeichen] Das war mit dem Kunden so abgesprochen, korrekt  → Gold: frage
+  · [tag-ohne-zeichen] Der Termin steht, gell  → Gold: frage
+
+Umschreibungen kurzer Nachfragen (letzter Lauf):
+  · „Noch Fragen dazu?“ [Kontext: So funktioniert der neue Freigabeprozess.]
+      → Haben Sie noch Fragen dazu?
+  · „Wie lange“ [Kontext: Die Migration läuft seit heute Morgen.]
+      → Wie lange läuft die Migration bereits?
+  · „How many“ [Kontext: We lost some requests during the deploy.]
+      → Wie viele Anfragen sind während des Deployments verloren gegangen?
+  · „Und danach?“ [Kontext: Zuerst spielen wir das Schema ein.]
+      → Was passiert, nachdem das Schema eingespielt wurde?
+  · „And the cost?“ [Kontext: The rollout takes about three weeks.]
+      → Was sind die Kosten für den Rollout?
+  · „Since when?“ [Kontext: The endpoint has been deprecated.]
+      → Seit wann wurde der Endpunkt außer Betrieb gesetzt?
+  · „Seit wann“ [Kontext: Der alte Endpunkt ist abgeschaltet.]
+      → Seit wann ist der alte Endpunkt abgeschaltet?
+  · „Since when“ [Kontext: That behaviour changed in the last release.]
+      → Seit wann hat sich dieses Verhalten geändert?
+  · „Wie oft“ [Kontext: Der Abgleich läuft automatisch.]
+      → Wie oft läuft der Abgleich automatisch?
+  · „How often“ [Kontext: The sync runs on a schedule.]
+      → Wie oft läuft die Synchronisation?
+  · „Und danach“ [Kontext: Erst kommt der Import, dann die Prüfung.]
+      → Was passiert, nachdem der Import und die Prüfung abgeschlossen sind?
+  · „And the cost“ [Kontext: We would need two extra nodes for that.]
+      → Was sind die Kosten für die zusätzlichen Knoten?
+  · „Bis wann genau“ [Kontext: Die Frist läuft Ende des Quartals ab.]
+      → Bis wann genau läuft die Frist?
+  · „For how long“ [Kontext: We keep the old index around during the switch.]
+      → Wie lange behalten wir den alten Index aufrecht?

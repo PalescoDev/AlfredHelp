@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CFBundleDevelopmentRegion</key>
+	<string>de</string>
+	<key>CFBundleDisplayName</key>
+	<string>AlfredHelp</string>
+	<key>CFBundleExecutable</key>
+	<string>AlfredHelp</string>
+	<key>CFBundleIconFile</key>
+	<string>AppIcon</string>
+	<key>CFBundleIdentifier</key>
+	<string>io.github.fvulcan.alfredhelp</string>
+	<key>CFBundleInfoDictionaryVersion</key>
+	<string>6.0</string>
+	<key>CFBundleName</key>
+	<string>AlfredHelp</string>
+	<key>CFBundlePackageType</key>
+	<string>APPL</string>
+	<key>CFBundleShortVersionString</key>
+	<string>1.0</string>
+	<key>CFBundleVersion</key>
+	<string>1</string>
+	<key>LSMinimumSystemVersion</key>
+	<string>26.0</string>
+	<key>LSUIElement</key>
+	<true/>
+	<key>NSAudioCaptureUsageDescription</key>
+	<string>AlfredHelp hört den Ton mit, den dieser Mac abspielt, um ihn lokal zu transkribieren, zu übersetzen und Fragen zu erkennen. Der Ton wird ausschließlich auf diesem Gerät verarbeitet.</string>
+	<key>NSHighResolutionCapable</key>
+	<true/>
+	<key>NSHumanReadableCopyright</key>
+	<string>AlfredHelp · PalescoDev · Läuft vollständig lokal. Keine Gesprächsdaten verlassen diesen Mac.</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>AlfredHelp transkribiert optional auch die eigene Gesprächsseite, damit Antworten zum bisherigen Gesprächsverlauf passen. Die Verarbeitung erfolgt ausschließlich lokal.</string>
+	<key>NSPrincipalClass</key>
+	<string>NSApplication</string>
+	<key>NSSpeechRecognitionUsageDescription</key>
+	<string>AlfredHelp nutzt die geräteinterne Spracherkennung von macOS. Es werden keine Audiodaten an Apple oder andere Dienste gesendet.</string>
+</dict>
+</plist>

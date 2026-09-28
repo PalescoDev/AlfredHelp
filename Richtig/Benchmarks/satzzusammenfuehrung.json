@@ -1,0 +1,507 @@
+{
+  "beschreibung": "Zerfallene und zusammengeklebte Äußerungen, wie die Spracherkennung sie liefert. Jede Sequenz ist eine Folge finalisierter Erkenner-Äußerungen derselben Quelle, mit ihrer Lage auf der Zeitachse des Erkenners (Sekunden). 'erwartet' ist der Text, den die Pipeline nach dem letzten Teil bewerten soll, 'label' das Urteil darüber. 'frage' ist der Teil davon, der beantwortet werden soll; fehlt das Feld, ist es der ganze erwartete Text. Gemessen wird damit in Tests/AlfredHelpCoreTests/StitchTests.swift.",
+  "sequenzen": [
+    {
+      "id": "de-backup-abgerissen",
+      "kategorie": "abgerissen",
+      "lang": "de",
+      "teile": [
+        { "text": "Wenn wir das so machen und dann", "start": 10.0, "ende": 11.8 },
+        { "text": "das Backup nicht anspringt, was passiert dann?", "start": 13.0, "ende": 15.6 }
+      ],
+      "erwartet": "Wenn wir das so machen und dann das Backup nicht anspringt, was passiert dann?",
+      "label": "frage"
+    },
+    {
+      "id": "de-cluster-abgerissen",
+      "kategorie": "abgerissen",
+      "lang": "de",
+      "teile": [
+        { "text": "Die Frage ist ob wir mit dem", "start": 30.0, "ende": 31.6 },
+        { "text": "alten Cluster noch bis März durchhalten.", "start": 32.5, "ende": 35.0 }
+      ],
+      "erwartet": "Die Frage ist ob wir mit dem alten Cluster noch bis März durchhalten.",
+      "label": "keine"
+    },
+    {
+      "id": "de-migration-interesse",
+      "kategorie": "abgerissen",
+      "lang": "de",
+      "teile": [
+        { "text": "Was mich dabei noch interessieren würde ist", "start": 51.0, "ende": 53.2 },
+        { "text": "wie ihr die Migration testet.", "start": 53.9, "ende": 55.8 }
+      ],
+      "erwartet": "Was mich dabei noch interessieren würde ist wie ihr die Migration testet.",
+      "label": "frage"
+    },
+    {
+      "id": "de-plan-team",
+      "kategorie": "abgerissen",
+      "lang": "de",
+      "teile": [
+        { "text": "Also der Plan wäre dass wir zuerst mit", "start": 70.0, "ende": 72.1 },
+        { "text": "dem kleinsten Team anfangen.", "start": 73.1, "ende": 75.0 }
+      ],
+      "erwartet": "Also der Plan wäre dass wir zuerst mit dem kleinsten Team anfangen.",
+      "label": "keine"
+    },
+    {
+      "id": "en-second-option",
+      "kategorie": "abgerissen",
+      "lang": "en",
+      "teile": [
+        { "text": "So if we take the second option and", "start": 90.0, "ende": 92.0 },
+        { "text": "the migration fails, what do we do?", "start": 93.1, "ende": 95.4 }
+      ],
+      "erwartet": "So if we take the second option and the migration fails, what do we do?",
+      "label": "frage"
+    },
+    {
+      "id": "en-parallel-week",
+      "kategorie": "abgerissen",
+      "lang": "en",
+      "teile": [
+        { "text": "The idea was that we could", "start": 110.0, "ende": 111.6 },
+        { "text": "run both in parallel for a week.", "start": 112.8, "ende": 114.9 }
+      ],
+      "erwartet": "The idea was that we could run both in parallel for a week.",
+      "label": "keine"
+    },
+    {
+      "id": "en-walk-me-through",
+      "kategorie": "abgerissen",
+      "lang": "en",
+      "teile": [
+        { "text": "Could you maybe walk me through the", "start": 130.0, "ende": 131.9 },
+        { "text": "deployment steps once more?", "start": 132.8, "ende": 134.6 }
+      ],
+      "erwartet": "Could you maybe walk me through the deployment steps once more?",
+      "label": "frage"
+    },
+    {
+      "id": "en-licence-cost",
+      "kategorie": "abgerissen",
+      "lang": "en",
+      "teile": [
+        { "text": "And another thing I wanted to", "start": 150.0, "ende": 151.5 },
+        { "text": "ask about is the licence cost.", "start": 152.2, "ende": 154.1 }
+      ],
+      "erwartet": "And another thing I wanted to ask about is the licence cost.",
+      "label": "frage"
+    },
+    {
+      "id": "de-quartalszahlen",
+      "kategorie": "abgerissen",
+      "lang": "de",
+      "teile": [
+        { "text": "Ich glaube wir sollten erstmal die", "start": 170.0, "ende": 171.7 },
+        { "text": "Zahlen vom letzten Quartal ansehen.", "start": 172.7, "ende": 174.9 }
+      ],
+      "erwartet": "Ich glaube wir sollten erstmal die Zahlen vom letzten Quartal ansehen.",
+      "label": "keine"
+    },
+    {
+      "id": "de-zweiter-standort",
+      "kategorie": "abgerissen",
+      "lang": "de",
+      "teile": [
+        { "text": "Wie das dann weitergeht mit", "start": 190.0, "ende": 191.4 },
+        { "text": "dem zweiten Standort?", "start": 192.2, "ende": 193.6 }
+      ],
+      "erwartet": "Wie das dann weitergeht mit dem zweiten Standort?",
+      "label": "frage"
+    },
+    {
+      "id": "en-incident-report",
+      "kategorie": "abgerissen",
+      "lang": "en",
+      "teile": [
+        { "text": "I was wondering whether you could", "start": 210.0, "ende": 211.8 },
+        { "text": "share the incident report with us.", "start": 212.7, "ende": 214.8 }
+      ],
+      "erwartet": "I was wondering whether you could share the incident report with us.",
+      "label": "frage"
+    },
+    {
+      "id": "de-unterschied-erklaeren",
+      "kategorie": "abgerissen",
+      "lang": "de",
+      "teile": [
+        { "text": "Erklär mir bitte kurz den", "start": 230.0, "ende": 231.4 },
+        { "text": "Unterschied zwischen den beiden Verfahren.", "start": 232.2, "ende": 234.6 }
+      ],
+      "erwartet": "Erklär mir bitte kurz den Unterschied zwischen den beiden Verfahren.",
+      "label": "frage"
+    },
+    {
+      "id": "en-rollback-procedure",
+      "kategorie": "abgerissen",
+      "lang": "en",
+      "teile": [
+        { "text": "Would you mind walking us through the", "start": 250.0, "ende": 251.9 },
+        { "text": "rollback procedure?", "start": 252.6, "ende": 253.7 }
+      ],
+      "erwartet": "Would you mind walking us through the rollback procedure?",
+      "label": "frage"
+    },
+    {
+      "id": "de-zwei-teams",
+      "kategorie": "abgerissen",
+      "lang": "de",
+      "teile": [
+        { "text": "Also die Idee wäre dann dass wir mit", "start": 270.0, "ende": 272.0 },
+        { "text": "zwei Teams parallel arbeiten.", "start": 273.1, "ende": 275.0 }
+      ],
+      "erwartet": "Also die Idee wäre dann dass wir mit zwei Teams parallel arbeiten.",
+      "label": "keine"
+    },
+    {
+      "id": "en-budget-cluster",
+      "kategorie": "abgerissen",
+      "lang": "en",
+      "teile": [
+        { "text": "So the question would be whether the", "start": 290.0, "ende": 291.9 },
+        { "text": "budget covers a second cluster.", "start": 292.9, "ende": 294.8 }
+      ],
+      "erwartet": "So the question would be whether the budget covers a second cluster.",
+      "label": "keine"
+    },
+    {
+      "id": "de-rollout-maerz",
+      "kategorie": "abgerissen",
+      "lang": "de",
+      "teile": [
+        { "text": "Der Rollout ist", "start": 310.0, "ende": 310.9 },
+        { "text": "für März geplant.", "start": 311.2, "ende": 312.4 }
+      ],
+      "erwartet": "Der Rollout ist für März geplant.",
+      "label": "keine"
+    },
+    {
+      "id": "de-lange-fortsetzung",
+      "kategorie": "abgerissen",
+      "lang": "de",
+      "teile": [
+        { "text": "Und wenn das jetzt nicht klappt, dann müssten wir das", "start": 330.0, "ende": 332.6 },
+        { "text": "Ganze noch mal von vorn aufsetzen, oder?", "start": 334.0, "ende": 336.8 }
+      ],
+      "erwartet": "Und wenn das jetzt nicht klappt, dann müssten wir das Ganze noch mal von vorn aufsetzen, oder?",
+      "label": "frage"
+    },
+
+    {
+      "id": "de-neuindizierung",
+      "kategorie": "erkenner-trennung",
+      "lang": "de",
+      "teile": [
+        { "text": "Wie lange dauert eine vollständige", "start": 400.0, "ende": 401.9 },
+        { "text": "Neuindizierung auf dem Produktivsystem?", "start": 402.02, "ende": 404.4 }
+      ],
+      "erwartet": "Wie lange dauert eine vollständige Neuindizierung auf dem Produktivsystem?",
+      "label": "frage"
+    },
+    {
+      "id": "de-abnahme-testsystem",
+      "kategorie": "erkenner-trennung",
+      "lang": "de",
+      "teile": [
+        { "text": "Und wer übernimmt eigentlich die", "start": 420.0, "ende": 421.7 },
+        { "text": "Abnahme im Testsystem?", "start": 421.9, "ende": 423.3 }
+      ],
+      "erwartet": "Und wer übernimmt eigentlich die Abnahme im Testsystem?",
+      "label": "frage"
+    },
+    {
+      "id": "en-three-retries",
+      "kategorie": "erkenner-trennung",
+      "lang": "en",
+      "teile": [
+        { "text": "What happens if all three", "start": 440.0, "ende": 441.4 },
+        { "text": "retries fail?", "start": 441.55, "ende": 442.4 }
+      ],
+      "erwartet": "What happens if all three retries fail?",
+      "label": "frage"
+    },
+    {
+      "id": "de-betroffene-nutzer",
+      "kategorie": "erkenner-trennung",
+      "lang": "de",
+      "teile": [
+        { "text": "Wie viele Nutzer sind davon", "start": 460.0, "ende": 461.5 },
+        { "text": "betroffen gewesen?", "start": 461.8, "ende": 462.9 }
+      ],
+      "erwartet": "Wie viele Nutzer sind davon betroffen gewesen?",
+      "label": "frage"
+    },
+    {
+      "id": "de-termin-verschieben",
+      "kategorie": "erkenner-trennung",
+      "lang": "de",
+      "teile": [
+        { "text": "Können wir den Termin auf", "start": 480.0, "ende": 481.3 },
+        { "text": "nächste Woche verschieben?", "start": 481.55, "ende": 483.0 }
+      ],
+      "erwartet": "Können wir den Termin auf nächste Woche verschieben?",
+      "label": "frage"
+    },
+    {
+      "id": "en-schema-changes",
+      "kategorie": "erkenner-trennung",
+      "lang": "en",
+      "teile": [
+        { "text": "How do you handle the", "start": 500.0, "ende": 501.1 },
+        { "text": "schema changes during a rolling deploy?", "start": 501.28, "ende": 503.9 }
+      ],
+      "erwartet": "How do you handle the schema changes during a rolling deploy?",
+      "label": "frage"
+    },
+    {
+      "id": "de-zahlen-geprueft",
+      "kategorie": "erkenner-trennung",
+      "lang": "de",
+      "teile": [
+        { "text": "Wir haben gestern die Zahlen", "start": 520.0, "ende": 521.5 },
+        { "text": "noch einmal geprüft.", "start": 521.9, "ende": 523.1 }
+      ],
+      "erwartet": "Wir haben gestern die Zahlen noch einmal geprüft.",
+      "label": "keine"
+    },
+    {
+      "id": "en-deployed-last-night",
+      "kategorie": "erkenner-trennung",
+      "lang": "en",
+      "teile": [
+        { "text": "We deployed it last night", "start": 540.0, "ende": 541.3 },
+        { "text": "and everything looks fine.", "start": 541.7, "ende": 543.1 }
+      ],
+      "erwartet": "We deployed it last night and everything looks fine.",
+      "label": "keine"
+    },
+    {
+      "id": "de-freigabe-rundschicken",
+      "kategorie": "erkenner-trennung",
+      "lang": "de",
+      "teile": [
+        { "text": "Ich habe die Freigabe gestern bekommen", "start": 560.0, "ende": 562.0 },
+        { "text": "und schicke sie gleich rum.", "start": 562.3, "ende": 563.8 }
+      ],
+      "erwartet": "Ich habe die Freigabe gestern bekommen und schicke sie gleich rum.",
+      "label": "keine"
+    },
+
+    {
+      "id": "en-question-whether-wiederholt",
+      "kategorie": "wiederholung",
+      "lang": "en",
+      "teile": [
+        { "text": "The question is whether the", "start": 600.0, "ende": 601.5 },
+        { "text": "The question is whether the rollout is on track?", "start": 602.0, "ende": 604.6 }
+      ],
+      "erwartet": "The question is whether the rollout is on track?",
+      "label": "frage"
+    },
+    {
+      "id": "de-neuindizierung-wiederholt",
+      "kategorie": "wiederholung",
+      "lang": "de",
+      "teile": [
+        { "text": "Wie lange dauert eine vollständige", "start": 620.0, "ende": 621.9 },
+        { "text": "vollständige Neuindizierung auf dem Produktivsystem?", "start": 622.1, "ende": 624.8 }
+      ],
+      "erwartet": "Wie lange dauert eine vollständige Neuindizierung auf dem Produktivsystem?",
+      "label": "frage"
+    },
+    {
+      "id": "de-was-macht-ihr-dann",
+      "kategorie": "wiederholung",
+      "lang": "de",
+      "teile": [
+        { "text": "Was macht ihr dann", "start": 640.0, "ende": 641.0 },
+        { "text": "Was macht ihr dann?", "start": 641.4, "ende": 642.5 }
+      ],
+      "erwartet": "Was macht ihr dann?",
+      "label": "frage"
+    },
+    {
+      "id": "de-zeitplan-phase-zwei",
+      "kategorie": "wiederholung",
+      "lang": "de",
+      "teile": [
+        { "text": "Und wie sieht der Zeitplan", "start": 660.0, "ende": 661.4 },
+        { "text": "wie sieht der Zeitplan für Phase zwei aus?", "start": 661.65, "ende": 664.2 }
+      ],
+      "erwartet": "Und wie sieht der Zeitplan für Phase zwei aus?",
+      "label": "frage"
+    },
+    {
+      "id": "de-das-ist-der-plan",
+      "kategorie": "wiederholung",
+      "lang": "de",
+      "teile": [
+        { "text": "Wir machen das", "start": 680.0, "ende": 680.8 },
+        { "text": "Das ist der Plan.", "start": 681.1, "ende": 682.2 }
+      ],
+      "erwartet": "Wir machen das Das ist der Plan.",
+      "label": "keine"
+    },
+
+    {
+      "id": "de-neuindizierung-dreiteilig",
+      "kategorie": "dreiteilig",
+      "lang": "de",
+      "teile": [
+        { "text": "Wie lange dauert eine vollständige", "start": 700.0, "ende": 701.9 },
+        { "text": "Neuindizierung auf dem", "start": 702.05, "ende": 703.1 },
+        { "text": "Produktivsystem?", "start": 703.3, "ende": 704.2 }
+      ],
+      "erwartet": "Wie lange dauert eine vollständige Neuindizierung auf dem Produktivsystem?",
+      "label": "frage"
+    },
+    {
+      "id": "de-zugriffsrechte-dreiteilig",
+      "kategorie": "dreiteilig",
+      "lang": "de",
+      "teile": [
+        { "text": "Und was mich noch interessieren würde", "start": 720.0, "ende": 722.0 },
+        { "text": "ist wie ihr das mit den", "start": 722.3, "ende": 723.4 },
+        { "text": "Zugriffsrechten löst.", "start": 724.3, "ende": 725.6 }
+      ],
+      "erwartet": "Und was mich noch interessieren würde ist wie ihr das mit den Zugriffsrechten löst.",
+      "label": "frage"
+    },
+    {
+      "id": "en-schema-migrations-dreiteilig",
+      "kategorie": "dreiteilig",
+      "lang": "en",
+      "teile": [
+        { "text": "So the first thing I wanted to", "start": 740.0, "ende": 741.6 },
+        { "text": "ask is how you deal with", "start": 742.0, "ende": 743.2 },
+        { "text": "the schema migrations.", "start": 743.7, "ende": 745.0 }
+      ],
+      "erwartet": "So the first thing I wanted to ask is how you deal with the schema migrations.",
+      "label": "frage"
+    },
+
+    {
+      "id": "de-seite-fertig-neue-frage",
+      "kategorie": "fehlverbindung",
+      "lang": "de",
+      "teile": [
+        { "text": "Das war es von meiner Seite", "start": 800.0, "ende": 801.6 },
+        { "text": "Wie sieht das bei euch aus?", "start": 803.0, "ende": 804.8 }
+      ],
+      "erwartet": "Wie sieht das bei euch aus?",
+      "label": "frage"
+    },
+    {
+      "id": "de-protokoll-dann-frage",
+      "kategorie": "fehlverbindung",
+      "lang": "de",
+      "teile": [
+        { "text": "Ich schicke euch das Protokoll später", "start": 820.0, "ende": 822.0 },
+        { "text": "Habt ihr sonst noch Fragen?", "start": 824.0, "ende": 825.8 }
+      ],
+      "erwartet": "Habt ihr sonst noch Fragen?",
+      "label": "frage"
+    },
+    {
+      "id": "de-fragment-verwaist",
+      "kategorie": "fehlverbindung",
+      "lang": "de",
+      "teile": [
+        { "text": "Wenn wir das so machen und dann", "start": 840.0, "ende": 841.8 },
+        { "text": "Ach, lassen wir das.", "start": 846.3, "ende": 847.4 }
+      ],
+      "erwartet": "Ach, lassen wir das.",
+      "label": "keine"
+    },
+    {
+      "id": "en-fragment-verwaist",
+      "kategorie": "fehlverbindung",
+      "lang": "en",
+      "teile": [
+        { "text": "The question is whether the", "start": 860.0, "ende": 861.5 },
+        { "text": "Anyway, let's move on.", "start": 867.5, "ende": 868.7 }
+      ],
+      "erwartet": "Anyway, let's move on.",
+      "label": "keine"
+    },
+    {
+      "id": "de-fragment-unterbrochen",
+      "kategorie": "fehlverbindung",
+      "lang": "de",
+      "teile": [
+        { "text": "Und dann müssen wir noch", "start": 880.0, "ende": 881.4 },
+        { "text": "Sorry, ich war kurz weg.", "start": 884.8, "ende": 886.1 }
+      ],
+      "erwartet": "Sorry, ich war kurz weg.",
+      "label": "keine"
+    },
+    {
+      "id": "de-fertige-frage-dann-aussage",
+      "kategorie": "fehlverbindung",
+      "lang": "de",
+      "teile": [
+        { "text": "Wie sieht euer Zeitplan aus?", "start": 900.0, "ende": 901.6 },
+        { "text": "Wir haben nämlich Druck.", "start": 901.9, "ende": 903.1 }
+      ],
+      "erwartet": "Wir haben nämlich Druck.",
+      "label": "keine"
+    },
+
+    {
+      "id": "de-aussage-plus-frage",
+      "kategorie": "mehrsatz",
+      "lang": "de",
+      "teile": [
+        { "text": "Wir haben das gestern ausgerollt. Wie lange dauert die Neuindizierung?", "start": 950.0, "ende": 954.0 }
+      ],
+      "erwartet": "Wir haben das gestern ausgerollt. Wie lange dauert die Neuindizierung?",
+      "frage": "Wie lange dauert die Neuindizierung?",
+      "label": "frage"
+    },
+    {
+      "id": "de-frage-in-der-mitte",
+      "kategorie": "mehrsatz",
+      "lang": "de",
+      "teile": [
+        { "text": "Das lief soweit gut. Habt ihr das auch schon getestet? Ich frage nur.", "start": 970.0, "ende": 974.5 }
+      ],
+      "erwartet": "Das lief soweit gut. Habt ihr das auch schon getestet? Ich frage nur.",
+      "frage": "Habt ihr das auch schon getestet?",
+      "label": "frage"
+    },
+    {
+      "id": "en-frage-in-der-mitte",
+      "kategorie": "mehrsatz",
+      "lang": "en",
+      "teile": [
+        { "text": "So that's done. What's the plan for phase two? We can decide later.", "start": 990.0, "ende": 994.5 }
+      ],
+      "erwartet": "So that's done. What's the plan for phase two? We can decide later.",
+      "frage": "What's the plan for phase two?",
+      "label": "frage"
+    },
+    {
+      "id": "de-selbstbeantwortet",
+      "kategorie": "mehrsatz",
+      "lang": "de",
+      "teile": [
+        { "text": "Warum erzähle ich das? Weil uns genau das letztes Jahr passiert ist.", "start": 1010.0, "ende": 1014.5 }
+      ],
+      "erwartet": "Warum erzähle ich das? Weil uns genau das letztes Jahr passiert ist.",
+      "label": "keine"
+    },
+    {
+      "id": "de-frage-mit-offenem-nachschlag",
+      "kategorie": "nachschlag",
+      "lang": "de",
+      "teile": [
+        { "text": "Wie sieht euer Rollback aus? Und wie lange dauert das", "start": 1030.0, "ende": 1032.6 },
+        { "text": "ganze dann insgesamt?", "start": 1033.4, "ende": 1035.2 }
+      ],
+      "erwartet": "Und wie lange dauert das ganze dann insgesamt?",
+      "label": "frage"
+    }
+  ]
+}

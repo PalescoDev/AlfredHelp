@@ -1,0 +1,82 @@
+name: AlfredHelp bauen und testen
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    name: Bauen und testen
+    # AlfredHelp verlangt das macOS-26-SDK (Richtig/Package.swift: platforms .macOS("26.0")).
+    # Sobald GitHub ein festes Abbild dafür anbietet, gehört es hier eingetragen
+    # statt `latest` – „latest" wandert und bricht den Lauf ohne Vorwarnung.
+    runs-on: macos-latest
+
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+
+      # Fällt der Läufer auf ein älteres Abbild zurück, soll das hier
+      # scheitern – mit einem Satz, der es erklärt. Ohne diese Stufe endet der
+      # Lauf erst viel später an einem SDK-Fehler, dem man nicht ansieht,
+      # woran es lag.
+      - name: Werkzeuge zeigen und macOS-Fassung prüfen
+        run: |
+          sw_vers
+          xcodebuild -version || true
+          swift --version
+          MAJOR="$(sw_vers -productVersion | cut -d. -f1)"
+          if [ "$MAJOR" -lt 26 ]; then
+            echo "::error::AlfredHelp verlangt das macOS-26-SDK (Richtig/Package.swift: platforms .macOS(\"26.0\")). Der Läufer hat macOS $(sw_vers -productVersion). Wenn GitHub ein festes macOS-26-Abbild anbietet, hier statt 'macos-latest' eintragen."
+            exit 1
+          fi
+
+      - name: Swift-Fassung für den Zwischenspeicher festhalten
+        run: |
+          VERSION="$(swift --version 2>/dev/null | grep -om1 'Apple Swift version [0-9.]*' | tr ' ' '-')"
+          echo "SWIFT_VERSION=${VERSION:-unbekannt}" >> "$GITHUB_ENV"
+
+      - name: Abhängigkeiten zwischenspeichern
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6
+        with:
+          path: Richtig/.build
+          # Die Swift-Fassung gehört in den Schlüssel: das Paket hat keine
+          # Abhängigkeiten, `Package.resolved` existiert gar nicht, und der
+          # Schlüssel wäre damit über Toolchain-Wechsel hinweg konstant – ein
+          # `.build` aus einer älteren Swift-Fassung würde weiterverwendet.
+          key: ${{ runner.os }}-swiftpm-${{ env.SWIFT_VERSION }}-${{ hashFiles('Richtig/Package.swift') }}
+          restore-keys: ${{ runner.os }}-swiftpm-${{ env.SWIFT_VERSION }}-
+
+      # Warnungen sind im Kern Fehler. Die Nebenläufigkeit dort ist der
+      # heikelste Teil der App, und eine neue Warnung ist genau das Signal, das
+      # man dabei nicht übersehen will. Über die Kommandozeile statt über
+      # `Richtig/Package.swift`: dort wäre es `unsafeFlags`, und das schließt das Paket
+      # als Abhängigkeit für immer aus.
+      - name: Bauen
+        run: cd Richtig && swift build -c release --product AlfredHelp -Xswiftc -warnings-as-errors
+
+      # Läuft ohne Ollama und ohne GPU: die Tests, die ein Modell bräuchten,
+      # sind bewusst keine Unit-Tests, sondern liegen unter Richtig/Benchmarks/.
+      - name: Testen
+        run: cd Richtig && swift test
+
+      - name: Programmbündel bauen
+        run: ./build.sh
+
+      - name: Bündel prüfen
+        run: |
+          test -x Richtig/dist/AlfredHelp.app/Contents/MacOS/AlfredHelp
+          test -f Richtig/dist/AlfredHelp.app/Contents/Info.plist
+          codesign --verify --verbose=1 Richtig/dist/AlfredHelp.app
+
+      - name: Bündel als Artefakt anhängen
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
+        with:
+          name: AlfredHelp-app-${{ github.sha }}
+          path: Richtig/dist/
+          retention-days: 14

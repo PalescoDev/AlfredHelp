@@ -1,0 +1,31 @@
+name: Änderungswunsch oder Idee
+description: Es fehlt etwas oder ein Ablauf könnte besser sein.
+labels: ["enhancement"]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: Welches Problem löst der Wunsch?
+      description: |
+        Beschreibe zuerst das Problem, nicht die Lösung. Was ist im Alltag umständlich oder unmöglich?
+      placeholder: |
+        In langen Gesprächen muss ich oft zurückscrollen, um eine frühere Antwort wiederzufinden.
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Vorschlag
+      description: Wie könnte es aussehen? „Noch keine Idee“ ist auch eine gültige Antwort.
+
+  - type: checkboxes
+    id: constraints
+    attributes:
+      label: Passt der Wunsch zum Projekt?
+      description: |
+        Diese drei Punkte sind bewusste Entscheidungen. Eine Änderung daran braucht eine gute Begründung und sollte vorab besprochen werden.
+      options:
+        - label: Die App funktioniert zur Laufzeit ohne Cloud, Konto und Internet.
+        - label: Es kommt keine neue Abhängigkeit hinzu.
+        - label: Neue Grenzwerte und Zahlen stammen aus Messungen unter `Richtig/Benchmarks/`.

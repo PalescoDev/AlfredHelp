@@ -1,0 +1,21 @@
+# Zeilenenden vereinheitlichen, damit ein Windows-Beitrag keine Datei umbricht.
+* text=auto eol=lf
+
+*.swift   text diff=swift
+*.md      text
+*.yml     text
+*.plist   text
+*.command text eol=lf
+*.sh      text eol=lf
+
+*.png  binary
+*.jpg  binary
+*.icns binary
+*.zip  binary
+
+# Die Windows-Portierungsvorlage ist eine Spezifikation, kein Quelltext – sonst
+# steht die Sprachstatistik des Projekts auf dem Kopf.
+Richtig/Benchmarks/**         linguist-documentation
+Richtig/docs/**               linguist-documentation
+Richtig/GitHub/**             linguist-documentation
+PalescoDev/*.md              linguist-documentation

@@ -1,0 +1,75 @@
+name: Fehler melden
+description: Ein Verhalten funktioniert nicht wie beschrieben.
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Danke für den Bericht. **Bitte keine Gesprächsprotokolle oder Gesprächsinhalte einfügen.** Ein nachgestellter Beispielsatz reicht.
+
+  - type: textarea
+    id: what
+    attributes:
+      label: Was passiert?
+      description: Was macht die App, und was sollte stattdessen passieren?
+      placeholder: |
+        Obwohl jemand in Teams spricht, erscheint keine Mitschrift.
+        Erwartet: Die Sätze erscheinen links im Fenster.
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps
+    attributes:
+      label: Wie lässt sich der Fehler nachstellen?
+      description: Welche Schritte führen dazu?
+      placeholder: |
+        1. AlfredHelp öffnen
+        2. An einer Teams-Besprechung teilnehmen
+        3. Die Gegenseite sprechen lassen – es erscheint kein Text
+    validations:
+      required: true
+
+  - type: textarea
+    id: selftest
+    attributes:
+      label: Ausgabe des Selbsttests
+      description: |
+        Zeigt, ob Ollama läuft, ein Modell vorhanden ist und die Audioberechtigung funktioniert.
+      render: shell
+      placeholder: |
+        "/Applications/AlfredHelp.app/Contents/MacOS/AlfredHelp" --selftest
+    validations:
+      required: true
+
+  - type: input
+    id: version
+    attributes:
+      label: AlfredHelp-Version
+      placeholder: "1.0.0 – unten im Menü der Menüleiste angezeigt"
+    validations:
+      required: true
+
+  - type: input
+    id: macos
+    attributes:
+      label: macOS und Mac
+      placeholder: "macOS 26.1, MacBook Pro M3, 18 GB"
+    validations:
+      required: true
+
+  - type: input
+    id: model
+    attributes:
+      label: Ausgewähltes Sprachmodell
+      placeholder: "gemma3:12b"
+
+  - type: checkboxes
+    id: signature
+    attributes:
+      label: Selbst gebaut?
+      description: |
+        Bei Audioproblemen wichtig: Ohne Entwicklerzertifikat ist die App ad-hoc signiert. macOS kann dann nach jedem Neubau die Audioberechtigung verwerfen und Stille liefern.
+      options:
+        - label: Ich habe die App mit `./build.sh` selbst gebaut.
+        - label: Ich nutze eine heruntergeladene Version.
