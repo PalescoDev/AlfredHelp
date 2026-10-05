@@ -7,5 +7,5 @@ contact_links:
     url: https://github.com/PalescoDev/AlfredHelp/discussions
     about: Für Themen, die weder ein Fehler noch ein konkreter Änderungswunsch sind.
   - name: Bitte zuerst hier nachsehen
-    url: https://github.com/PalescoDev/AlfredHelp/blob/main/Richtig/docs/Technische-Dokumentation.md
+    url: https://github.com/PalescoDev/AlfredHelp/blob/main/app/docs/Technische-Dokumentation.md
     about: Erklärt das Verhalten der App und enthält alle Messwerte.

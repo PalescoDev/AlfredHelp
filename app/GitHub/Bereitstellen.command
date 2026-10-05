@@ -26,12 +26,12 @@ DATEIEN=(README.md LICENSE CHANGELOG.md CONTRIBUTING.md CODE_OF_CONDUCT.md SECUR
 echo "Es wird kopiert:"
 for datei in "${DATEIEN[@]}"; do
   if [ -e "$WURZEL/$datei" ]; then
-    echo "  Richtig/GitHub/$datei → $datei (vorhandene Datei wird ersetzt)"
+    echo "  app/GitHub/$datei → $datei (vorhandene Datei wird ersetzt)"
   else
-    echo "  Richtig/GitHub/$datei → $datei"
+    echo "  app/GitHub/$datei → $datei"
   fi
 done
-echo "  Richtig/GitHub/.github/ → .github/ (Abläufe sowie Formulare für Fehler und Änderungswünsche)"
+echo "  app/GitHub/.github/ → .github/ (Abläufe sowie Formulare für Fehler und Änderungswünsche)"
 echo
 warn "Die Kopien im GitHub-Wurzelordner bleiben nötig, damit GitHub README, Lizenz und Abläufe erkennt."
 echo
@@ -52,7 +52,7 @@ cp -R "$HIER/.github/." "$WURZEL/.github/"
 echo "  ✓ .github/"
 
 if [ -f "$PROJEKT/docs/bilder/LIESMICH.md" ]; then
-  echo "  ✓ Screenshot-Hinweis liegt unter Richtig/docs/bilder/"
+  echo "  ✓ Screenshot-Hinweis liegt unter app/docs/bilder/"
 else
   mkdir -p "$PROJEKT/docs/bilder"
   cat > "$PROJEKT/docs/bilder/LIESMICH.md" <<'PLATZHALTER'
@@ -61,7 +61,7 @@ else
 `overlay.png` bindet die README ein und wird zusätzlich als Vorschaubild des
 Repositorys gebraucht (1280 × 640 px).
 PLATZHALTER
-  echo "  ✓ Richtig/docs/bilder/ (Screenshot-Hinweis angelegt)"
+  echo "  ✓ app/docs/bilder/ (Screenshot-Hinweis angelegt)"
 fi
 
 echo
@@ -70,8 +70,8 @@ grep -rln "TODO-KONTAKT" "$WURZEL" --include="*.md" \
   --exclude-dir=Archive --exclude-dir=GitHub --exclude-dir=.build --exclude-dir=.git 2>/dev/null \
   | sed "s|^$WURZEL/|  · Kontaktadresse eintragen in: |" || true
 [ -f "$PROJEKT/docs/bilder/overlay.png" ] \
-  || echo "  · Bildschirmfoto: Richtig/docs/bilder/overlay.png"
-echo "  · Versionsnummer: Richtig/Resources/Info.plist"
-echo "  · Release-Checkliste: Richtig/GitHub/Release/Release-Checkliste.md"
+  || echo "  · Bildschirmfoto: app/docs/bilder/overlay.png"
+echo "  · Versionsnummer: app/Resources/Info.plist"
+echo "  · Release-Checkliste: app/GitHub/Release/Release-Checkliste.md"
 echo
 echo "Dieses Skript kopiert nur lokal. Commit, Push und Veröffentlichung bleiben getrennte Schritte."

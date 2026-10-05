@@ -28,4 +28,4 @@ body:
       options:
         - label: Die App funktioniert zur Laufzeit ohne Cloud, Konto und Internet.
         - label: Es kommt keine neue Abhängigkeit hinzu.
-        - label: Neue Grenzwerte und Zahlen stammen aus Messungen unter `Richtig/Benchmarks/`.
+        - label: Neue Grenzwerte und Zahlen stammen aus Messungen unter `app/Benchmarks/`.

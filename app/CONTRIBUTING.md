@@ -6,8 +6,7 @@ Danke fürs Interesse. Das Projekt hat ein paar Besonderheiten. Hier stehen sie 
 
 ```bash
 git clone https://github.com/PalescoDev/AlfredHelp.git
-cd AlfredHelp
-cd Richtig
+cd AlfredHelp/app
 swift test        # läuft ohne Ollama und ohne Grafikprozessor
 ./build.sh        # erstellt dist/AlfredHelp.app
 ```
@@ -24,15 +23,15 @@ Fehlerberichte und Änderungsanträge kannst du auf Deutsch einreichen.
 
 ### 2. Zahlen werden gemessen
 
-Grenzwerte, Ranglisten und Latenzen stammen aus `Richtig/Benchmarks/`. Änderst du einen Wert, aktualisiere auch die Messung oder ergänze eine neue.
+Grenzwerte, Ranglisten und Latenzen stammen aus `Benchmarks/`. Änderst du einen Wert, aktualisiere auch die Messung oder ergänze eine neue.
 
 | Messung | Werkzeug oder Datensatz |
 |---|---|
-| Modellrang, Abdeckung und Geschwindigkeit | `Richtig/Benchmarks/benchmark.py` |
-| Fragenerkennung und Fehlermatrix | `Richtig/Benchmarks/frage_benchmark.sh`, `frageerkennung.json` |
+| Modellrang, Abdeckung und Geschwindigkeit | `Benchmarks/benchmark.py` |
+| Fragenerkennung und Fehlermatrix | `Benchmarks/frage_benchmark.sh`, `frageerkennung.json` |
 | Satzverknüpfung und Zeitfenster | `swift test`, `satzzusammenfuehrung.json` |
 | Erkennungszeit | `AlfredHelp --recognition-latency <datei> <sprache>` |
-| Antwortformat | `Richtig/Benchmarks/antwort_ab.py` |
+| Antwortformat | `Benchmarks/antwort_ab.py` |
 
 Der Regelteil der Fragenerkennung läuft bei jedem `swift test`. Er hält die Trefferquote bei 1,000 und erzeugt dabei keine sofortigen Fehlalarme. Der vollständige Messlauf braucht einen freien Grafikprozessor. Messungen während ein anderer Auftrag läuft, sind nicht aussagekräftig.
 
@@ -60,7 +59,7 @@ Beim ersten Lauf erklärt `build.sh`, wie die lokale Signaturidentität *AlfredH
 
 Commit-Titel beschreiben die Änderung kurz und direkt, zum Beispiel „Erkennungszeit an den Tonpegel binden“.
 
-**Willkommen:** Fehlerberichte mit `--selftest`-Ausgabe, neue markierte Beispiele unter `Richtig/Benchmarks/frageerkennung.json` und Messungen, die eine bestehende Aussage widerlegen.
+**Willkommen:** Fehlerberichte mit `--selftest`-Ausgabe, neue markierte Beispiele unter `Benchmarks/frageerkennung.json` und Messungen, die eine bestehende Aussage widerlegen.
 
 **Bitte zuerst ein Issue öffnen:** neue Abhängigkeiten, ein weiterer Netzwerkweg oder Änderungen an der Unsichtbarkeit des Fensters bei einer Bildschirmfreigabe.
 

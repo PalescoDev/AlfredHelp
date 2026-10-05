@@ -13,7 +13,7 @@ macOS 26 oder neuer, Apple-Chip und Xcode mit Swift. Für `gemma3:4b` werden 16 
 open dist/AlfredHelp.app
 ```
 
-Das fertige App-Bündel liegt in `dist/`. Ohne Entwicklerzertifikat wird es lokal signiert. Für eine Veröffentlichung sind Developer-ID-Signatur und Apple-Notarisierung nötig.
+Das fertige App-Bündel liegt in `dist/`. Aktuell ist es ohne Entwicklerzertifikat und wird lokal signiert bis zum vollständigen Release.
 
 ## Testen
 

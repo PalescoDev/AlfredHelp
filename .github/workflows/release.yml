@@ -92,12 +92,12 @@ jobs:
           RELEASE_TAG: ${{ steps.version.outputs.tag }}
         run: |
           TAG_VERSION="${RELEASE_TAG#v}"
-          SOURCE_VERSION="$(/usr/libexec/PlistBuddy -c 'Print :CFBundleShortVersionString' Richtig/Resources/Info.plist)"
+          SOURCE_VERSION="$(/usr/libexec/PlistBuddy -c 'Print :CFBundleShortVersionString' app/Resources/Info.plist)"
           if [[ "$SOURCE_VERSION" =~ ^(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)$ ]]; then
             SOURCE_VERSION="${BASH_REMATCH[1]}.${BASH_REMATCH[2]}.0"
           fi
           if ! [[ "$SOURCE_VERSION" =~ ^(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)$ ]]; then
-            echo "::error::Die Quellversion in Richtig/Resources/Info.plist ist keine gültige SemVer-Fassung: $SOURCE_VERSION"
+            echo "::error::Die Quellversion in app/Resources/Info.plist ist keine gültige SemVer-Fassung: $SOURCE_VERSION"
             exit 1
           fi
           if [ "$SOURCE_VERSION" != "$TAG_VERSION" ]; then
@@ -106,10 +106,10 @@ jobs:
           fi
 
       - name: Bauen mit Warnungen als Fehler
-        run: cd Richtig && swift build -c release --product AlfredHelp -Xswiftc -warnings-as-errors
+        run: cd app && swift build -c release --product AlfredHelp -Xswiftc -warnings-as-errors
 
       - name: Testen
-        run: cd Richtig && swift test
+        run: cd app && swift test
 
       - name: Signatur- und Notarisierungsdaten prüfen
         env:
@@ -153,16 +153,16 @@ jobs:
           CODE_SIGN_TIMESTAMP: '1'
           APP_VERSION: ${{ steps.bundle-version.outputs.version }}
           APP_BUILD: ${{ github.run_number }}
-        run: cd Richtig && ./build.sh
+        run: cd app && ./build.sh
 
       - name: Bündelfassung prüfen
         env:
           EXPECTED_VERSION: ${{ steps.bundle-version.outputs.version }}
           EXPECTED_BUILD: ${{ github.run_number }}
         run: |
-          test "$(defaults read "$PWD/Richtig/dist/AlfredHelp.app/Contents/Info" CFBundleShortVersionString)" = \
+          test "$(defaults read "$PWD/app/dist/AlfredHelp.app/Contents/Info" CFBundleShortVersionString)" = \
             "$EXPECTED_VERSION"
-          test "$(defaults read "$PWD/Richtig/dist/AlfredHelp.app/Contents/Info" CFBundleVersion)" = \
+          test "$(defaults read "$PWD/app/dist/AlfredHelp.app/Contents/Info" CFBundleVersion)" = \
             "$EXPECTED_BUILD"
 
       - name: Notarisieren
@@ -172,14 +172,14 @@ jobs:
           NOTARY_ISSUER: ${{ secrets.NOTARY_API_ISSUER }}
         run: |
           echo "$NOTARY_KEY" | base64 --decode > "$RUNNER_TEMP/notary.p8"
-          ditto -c -k --keepParent Richtig/dist/AlfredHelp.app "$RUNNER_TEMP/notarize.zip"
+          ditto -c -k --keepParent app/dist/AlfredHelp.app "$RUNNER_TEMP/notarize.zip"
           xcrun notarytool submit "$RUNNER_TEMP/notarize.zip" \
             --key "$RUNNER_TEMP/notary.p8" \
             --key-id "$NOTARY_KEY_ID" \
             --issuer "$NOTARY_ISSUER" \
             --wait
           # Der Heftzettel gehört ins Bündel, damit es auch offline durchgeht.
-          xcrun stapler staple Richtig/dist/AlfredHelp.app
+          xcrun stapler staple app/dist/AlfredHelp.app
           rm -f "$RUNNER_TEMP/notary.p8"
 
       - name: Archiv schnüren
@@ -190,7 +190,7 @@ jobs:
           NAME="AlfredHelp-$RELEASE_TAG"
           # `ditto` statt `zip`: es erhält Rechte und erweiterte Attribute, und
           # nur damit übersteht die Signatur den Weg über das Netz.
-          ditto -c -k --sequesterRsrc --keepParent Richtig/dist "$NAME.zip"
+          ditto -c -k --sequesterRsrc --keepParent app/dist "$NAME.zip"
           shasum -a 256 "$NAME.zip" > "$NAME.zip.sha256"
           echo "name=$NAME" >> "$GITHUB_OUTPUT"
           cat "$NAME.zip.sha256"
@@ -214,7 +214,7 @@ jobs:
         env:
           RELEASE_TAG: ${{ steps.version.outputs.tag }}
         run: |
-          FILE="Richtig/GitHub/Release/Release-Notes-$RELEASE_TAG.md"
+          FILE="app/GitHub/Release/Release-Notes-$RELEASE_TAG.md"
           if [ ! -f "$FILE" ]; then
             echo "::error::$FILE fehlt. Vor dem Tag muss eine deutsche Veröffentlichungsnotiz angelegt werden."
             exit 1

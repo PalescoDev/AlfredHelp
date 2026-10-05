@@ -61,7 +61,7 @@ BASE_MINOR="${BASH_REMATCH[2]}"
 BASE_PATCH="${BASH_REMATCH[3]}"
 BASE_VERSION="$BASE_MAJOR.$BASE_MINOR.$BASE_PATCH"
 
-PLIST="Richtig/Resources/Info.plist"
+PLIST="app/Resources/Info.plist"
 SOURCE_VERSION="$(/usr/libexec/PlistBuddy -c 'Print :CFBundleShortVersionString' "$PLIST")"
 if [[ "$SOURCE_VERSION" =~ ^(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)$ ]]; then
   NORMAL_SOURCE_VERSION="${BASH_REMATCH[1]}.${BASH_REMATCH[2]}.0"
@@ -81,15 +81,15 @@ if ! grep -Fq "## [$BASE_VERSION]" CHANGELOG.md; then
   echo "Fehler: CHANGELOG.md enthält keinen Abschnitt für $BASE_VERSION." >&2
   exit 1
 fi
-if ! cmp -s CHANGELOG.md Richtig/GitHub/CHANGELOG.md; then
-  echo "Fehler: CHANGELOG.md und Richtig/GitHub/CHANGELOG.md sind nicht synchron." >&2
+if ! cmp -s CHANGELOG.md app/GitHub/CHANGELOG.md; then
+  echo "Fehler: CHANGELOG.md und app/GitHub/CHANGELOG.md sind nicht synchron." >&2
   exit 1
 fi
 LOCAL_CHANGELOG_TMP="$(mktemp)"
-sed 's@Richtig/Benchmarks/@Benchmarks/@g' CHANGELOG.md > "$LOCAL_CHANGELOG_TMP"
-if ! cmp -s "$LOCAL_CHANGELOG_TMP" Richtig/CHANGELOG.md; then
+sed 's@app/Benchmarks/@Benchmarks/@g' CHANGELOG.md > "$LOCAL_CHANGELOG_TMP"
+if ! cmp -s "$LOCAL_CHANGELOG_TMP" app/CHANGELOG.md; then
   rm -f "$LOCAL_CHANGELOG_TMP"
-  echo "Fehler: Richtig/CHANGELOG.md ist nicht mit dem Änderungsprotokoll synchron." >&2
+  echo "Fehler: app/CHANGELOG.md ist nicht mit dem Änderungsprotokoll synchron." >&2
   exit 1
 fi
 rm -f "$LOCAL_CHANGELOG_TMP"
@@ -109,7 +109,7 @@ fi
 # Nie über ungespeicherte Änderungen an den Zieldateien schreiben. Die Vorschau
 # bleibt erlaubt, damit man die nächste Fassung auch vor dem Commit prüfen kann.
 if [[ "$APPLY" == "--anwenden" ]]; then
-  for TARGET in "$PLIST" CHANGELOG.md Richtig/CHANGELOG.md Richtig/GitHub/CHANGELOG.md; do
+  for TARGET in "$PLIST" CHANGELOG.md app/CHANGELOG.md app/GitHub/CHANGELOG.md; do
     if [ -n "$(git status --porcelain -- "$TARGET")" ]; then
       echo "Fehler: $TARGET enthält nicht gespeicherte Änderungen." >&2
       echo "Bitte erst prüfen und committen, dann die Fassung vorbereiten." >&2
@@ -124,7 +124,7 @@ printf 'Quellversion:          %s\n' "$SOURCE_VERSION"
 printf 'Erhöhung:              %s\n' "$BUMP"
 printf 'Neue Version:          %s\n' "$NEXT_VERSION"
 printf 'Änderungsprotokoll:    Noch nicht veröffentlicht → %s (%s)\n' "$NEXT_VERSION" "$RELEASE_DATE"
-printf 'Veröffentlichungsnotiz: Richtig/GitHub/Release/Release-Notes-%s.md (vor dem Tag aus Vorlage anlegen und ausfüllen)\n' "$NEXT_TAG"
+printf 'Veröffentlichungsnotiz: app/GitHub/Release/Release-Notes-%s.md (vor dem Tag aus Vorlage anlegen und ausfüllen)\n' "$NEXT_TAG"
 
 if [[ "$APPLY" != "--anwenden" ]]; then
   echo "Vorschau: keine Dateien geändert. Für die Änderung --anwenden ergänzen."
@@ -157,26 +157,26 @@ make_changelog() {
     { print }
   ' "$INPUT" > "$OUTPUT"
   if [[ "$LOCAL_PATHS" == "ja" ]]; then
-    sed 's@Richtig/Benchmarks/@Benchmarks/@g' "$OUTPUT" > "$OUTPUT.local"
+    sed 's@app/Benchmarks/@Benchmarks/@g' "$OUTPUT" > "$OUTPUT.local"
     mv "$OUTPUT.local" "$OUTPUT"
   fi
 }
 
 make_changelog CHANGELOG.md "$TMP_DIR/CHANGELOG.md" nein
 make_changelog CHANGELOG.md "$TMP_DIR/GitHub-CHANGELOG.md" nein
-make_changelog CHANGELOG.md "$TMP_DIR/Richtig-CHANGELOG.md" ja
+make_changelog CHANGELOG.md "$TMP_DIR/app-CHANGELOG.md" ja
 
 # Vor dem Ersetzen prüfen, dass alle erzeugten Änderungsprotokolle einen neuen
 # Unreleased-Abschnitt und die Versionslinks enthalten.
-for FILE in "$TMP_DIR/CHANGELOG.md" "$TMP_DIR/GitHub-CHANGELOG.md" "$TMP_DIR/Richtig-CHANGELOG.md"; do
+for FILE in "$TMP_DIR/CHANGELOG.md" "$TMP_DIR/GitHub-CHANGELOG.md" "$TMP_DIR/app-CHANGELOG.md"; do
   grep -Fq "## [$NEXT_VERSION] – $RELEASE_DATE" "$FILE"
   grep -Fq "[$NEXT_VERSION]: https://github.com/PalescoDev/AlfredHelp/releases/tag/$NEXT_TAG" "$FILE"
 done
 
 mv "$TMP_DIR/Info.plist" "$PLIST"
 mv "$TMP_DIR/CHANGELOG.md" CHANGELOG.md
-mv "$TMP_DIR/GitHub-CHANGELOG.md" Richtig/GitHub/CHANGELOG.md
-mv "$TMP_DIR/Richtig-CHANGELOG.md" Richtig/CHANGELOG.md
+mv "$TMP_DIR/GitHub-CHANGELOG.md" app/GitHub/CHANGELOG.md
+mv "$TMP_DIR/app-CHANGELOG.md" app/CHANGELOG.md
 
 echo "Fassung $NEXT_VERSION vorbereitet. Dateien prüfen, testen und gezielt committen."
 echo "Es wurden weder ein Commit noch ein Tag erstellt."

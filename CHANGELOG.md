@@ -52,12 +52,12 @@ Dieses Protokoll folgt [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 ### Hinzugefügt
 
 - **Zerlegte Sätze werden wieder zusammengesetzt.** Eine gesprochene Frage kommt häufig in zwei oder drei abgeschlossenen Teilen an. Bisher wurde nur der letzte Teil beurteilt. `UtteranceStitcher` kann bis zu vier Teile verbinden. Sichtbar abgeschnittene Teile warten höchstens `continuationFlushSeconds` (2,6 s); ein fehlender Punkt wird nur ergänzt, wenn die Erkennung zwischen den Teilen weniger als 0,6 s Stille meldet. Beide Zeitfenster werden bei `swift test` gegen neue Daten geprüft. Antworten, die schon möglich sind, werden nicht verzögert.
-- **`Richtig/Benchmarks/satzzusammenfuehrung.json`** enthält 45 markierte Folgen von Erkennungsteilen samt Zeitpositionen: abgebrochene Teile, Satzmitten, Wiederholungen, Dreierketten, mehrere Sätze pro Block und Teile, die getrennt bleiben müssen.
+- **`app/Benchmarks/satzzusammenfuehrung.json`** enthält 45 markierte Folgen von Erkennungsteilen samt Zeitpositionen: abgebrochene Teile, Satzmitten, Wiederholungen, Dreierketten, mehrere Sätze pro Block und Teile, die getrennt bleiben müssen.
 - **Beim Verbinden werden Wiederholungen entfernt.** Die Erkennung wiederholt mitunter bereits gelieferte Wörter. Der überlappende Teil wird aus dem zweiten Fragment entfernt; Satzzeichen des ersten Fragments bleiben erhalten. Ein einzelnes gemeinsames Funktionswort wird nicht entfernt. Dieselbe Funktion läuft bereits in `UtteranceAssembler`, damit Wiederholungen nicht im Protokoll landen.
 - **Mehrere Sätze zählen nicht mehr als eine einzige Frage.** `TextUtilities.questionFocus` beschränkt die Frage auf Sätze, die tatsächlich etwas fragen. Der Rest bleibt als Kontext verfügbar.
 - **Überholte Antwortkarten werden ausdrücklich verworfen.** Ein abgebrochener Antwortstrom blieb zuvor bis zum Ende der Sitzung unvollständig stehen. Bei einer vollständigeren Folgefrage wird jetzt die alte Karte entfernt.
 - **Die Regelerkennung erfasst bisher übersehene Frageformen.** Dazu gehören indirekte Fragen, Aufforderungen als Aussage, mehrteilige Anhängsel ohne Fragezeichen, elliptische Rückfragen mit Präposition, trennbare deutsche Verben und Nebensätze. Auf den früheren 162 Beispielen bleibt die Trefferquote bei 1,000 ohne sofortige Fehlalarme; die Präzision der Regeln steigt von 0,961 auf 0,971. Der vollständige Ablauf mit `gemma3:4b` steigt von 0,961/0,990 auf 0,970/0,990. Die Latenz bleibt unverändert.
-- **79 markierte Beispiele** ergänzen `Richtig/Benchmarks/frageerkennung.json` (162 → 241): 50 Fragen, 25 Aussagen und 4 Satzfragmente. Die Aussagen prüfen gezielt die neuen Regeln. Im gesamten Datensatz liegt die Trefferquote bei 1,000 und die Präzision bei 0,968; die fünf übrigen Fehlalarme liegen im einstellbaren 0,40-Bereich.
+- **79 markierte Beispiele** ergänzen `app/Benchmarks/frageerkennung.json` (162 → 241): 50 Fragen, 25 Aussagen und 4 Satzfragmente. Die Aussagen prüfen gezielt die neuen Regeln. Im gesamten Datensatz liegt die Trefferquote bei 1,000 und die Präzision bei 0,968; die fünf übrigen Fehlalarme liegen im einstellbaren 0,40-Bereich.
 - **Neue Antwortkarten machen sich bemerkbar.** Sie gleiten ein und erhalten zwei Sekunden lang einen Akzentrand. Ohne Ton und Blinken.
 - **Probleme bleiben in der Hinweisleiste sichtbar**, bis sie ablaufen, und werden nicht von einer harmlosen Meldung verdrängt.
 - **`⌥⌘A` erklärt, wenn die Aktion nicht möglich ist.** Schaltfläche und Menüpunkt verwenden denselben Aktivierungsstatus; ohne aktive Sitzung erscheint ein Hinweis.
@@ -80,7 +80,7 @@ Erste Veröffentlichung.
 - **Manuelle Antwort als Rückfallebene:** Jede Äußerung der Gegenseite lässt sich anklicken, unabhängig von der automatischen Erkennung.
 - **Gesprächskontext** aus fortlaufender Zusammenfassung und den letzten Äußerungen im Wortlaut.
 - **Bei Bildschirmfreigaben unsichtbar**, prüfbar mit `--privacy-check`.
-- **Modellauswahl mit Messwerten** statt Werbeversprechen, gespeist aus `Richtig/Benchmarks/benchmark.py`.
+- **Modellauswahl mit Messwerten** statt Werbeversprechen, gespeist aus `app/Benchmarks/benchmark.py`.
 - Kommandozeilenprüfungen: `--selftest`, `--audio-diagnose`, `--audio-watch`, `--audio-devices`, `--capture-probe`, `--transcribe-test`, `--recognition-latency` und `--privacy-check`.
 
 ### Gemessen

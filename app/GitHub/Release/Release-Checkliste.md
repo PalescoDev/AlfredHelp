@@ -2,7 +2,7 @@
 
 <sub>PalescoDev</sub>
 
-Der aktive Quellcode liegt in `Richtig/`. Release-Unterlagen, Versionsskript und Übersicht stehen in `PalescoDev/`.
+Der aktive Quellcode liegt in `app/`. Release-Unterlagen, Versionsskript und Übersicht stehen in `PalescoDev/`.
 
 ## Einmalig einrichten
 
@@ -45,22 +45,22 @@ Für eine Haupt- oder Nebenfassung `major` oder `minor` einsetzen. Erst nach Pr�
 ./PalescoDev/VERSION_VORBEREITEN.sh patch --anwenden
 ```
 
-Das Skript vergleicht die letzte Git-Fassung mit `Richtig/Resources/Info.plist`, erhöht die gewählte SemVer-Stelle und aktualisiert die Versionsnummer sowie alle drei Änderungsprotokolle. Es erstellt keinen Commit und keinen Tag. Die Freigabe bleibt bei dir.
+Das Skript vergleicht die letzte Git-Fassung mit `app/Resources/Info.plist`, erhöht die gewählte SemVer-Stelle und aktualisiert die Versionsnummer sowie alle drei Änderungsprotokolle. Es erstellt keinen Commit und keinen Tag. Die Freigabe bleibt bei dir.
 
-Lege eine deutsche Veröffentlichungsnotiz nach `PalescoDev/RELEASE-NOTIZEN-VORLAGE.md` an und speichere sie unter `Richtig/GitHub/Release/Release-Notes-v<Version>.md`. Der Release-Ablauf stoppt, wenn die Notiz fehlt oder noch Platzhalter enthält.
+Lege eine deutsche Veröffentlichungsnotiz nach `PalescoDev/RELEASE-NOTIZEN-VORLAGE.md` an und speichere sie unter `app/GitHub/Release/Release-Notes-v<Version>.md`. Der Release-Ablauf stoppt, wenn die Notiz fehlt oder noch Platzhalter enthält.
 
 ## 2. Prüfen
 
 ```bash
-(cd Richtig && swift test)
+(cd app && swift test)
 ./build.sh release
-codesign --verify --deep --strict --verbose=2 Richtig/dist/AlfredHelp.app
-"Richtig/dist/AlfredHelp.app/Contents/MacOS/AlfredHelp" --selftest
-"Richtig/dist/AlfredHelp.app/Contents/MacOS/AlfredHelp" --privacy-check
+codesign --verify --deep --strict --verbose=2 app/dist/AlfredHelp.app
+"app/dist/AlfredHelp.app/Contents/MacOS/AlfredHelp" --selftest
+"app/dist/AlfredHelp.app/Contents/MacOS/AlfredHelp" --privacy-check
 ```
 
 - [ ] Tests laufen erfolgreich durch.
-- [ ] Versionsnummer in `Richtig/Resources/Info.plist` entspricht der neuen Fassung.
+- [ ] Versionsnummer in `app/Resources/Info.plist` entspricht der neuen Fassung.
 - [ ] Änderungsprotokoll und Release-Notiz sind fertig.
 - [ ] Selbsttest und Datenschutzprüfung sind erfolgreich.
 - [ ] Die App wurde mit freigegebener Audioberechtigung und hörbarer Tonquelle geprüft.
@@ -73,9 +73,9 @@ Ein lokales Programmbündel ist **nicht automatisch veröffentlichungsfertig**. 
 
 ```bash
 VERSION="1.0.1"  # Durch die vorbereitete Fassung ersetzen.
-git add Richtig/Resources/Info.plist CHANGELOG.md Richtig/CHANGELOG.md Richtig/GitHub/CHANGELOG.md
-if [ -f "Richtig/GitHub/Release/Release-Notes-v$VERSION.md" ]; then
-  git add "Richtig/GitHub/Release/Release-Notes-v$VERSION.md"
+git add app/Resources/Info.plist CHANGELOG.md app/CHANGELOG.md app/GitHub/CHANGELOG.md
+if [ -f "app/GitHub/Release/Release-Notes-v$VERSION.md" ]; then
+  git add "app/GitHub/Release/Release-Notes-v$VERSION.md"
 fi
 git diff --cached --check
 git diff --cached

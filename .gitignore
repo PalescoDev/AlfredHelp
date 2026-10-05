@@ -5,7 +5,7 @@
 # `Resources/dist/` – und genau dort liegt die Nutzerdokumentation, die
 # build.sh dem Bündel beilegt. Ohne sie bricht der Bau eines frischen Klons ab.
 /dist/
-/Richtig/dist/
+/app/dist/
 *.xcodeproj
 *.xcworkspace
 .swiftpm/
@@ -18,8 +18,8 @@ DerivedData/
 # Messläufe – die Skripte gehören ins Repo, ihre Ergebnisse nicht
 Benchmarks/results.json
 Benchmarks/__pycache__/
-Richtig/Benchmarks/results.json
-Richtig/Benchmarks/__pycache__/
+app/Benchmarks/results.json
+app/Benchmarks/__pycache__/
 *.pyc
 
 # Lokale Werkzeugkonfiguration – gehört auf diesen Rechner, nicht ins Repo

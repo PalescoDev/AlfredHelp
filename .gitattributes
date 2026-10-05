@@ -15,7 +15,7 @@
 
 # Die Windows-Portierungsvorlage ist eine Spezifikation, kein Quelltext – sonst
 # steht die Sprachstatistik des Projekts auf dem Kopf.
-Richtig/Benchmarks/**         linguist-documentation
-Richtig/docs/**               linguist-documentation
-Richtig/GitHub/**             linguist-documentation
+app/Benchmarks/**         linguist-documentation
+app/docs/**               linguist-documentation
+app/GitHub/**             linguist-documentation
 PalescoDev/*.md              linguist-documentation

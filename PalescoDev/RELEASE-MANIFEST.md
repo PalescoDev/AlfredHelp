@@ -2,10 +2,10 @@
 
 ## Quelle
 
-- App-Code, Ressourcen und Tests: `Richtig/`
-- Versionsnummer: `Richtig/Resources/Info.plist`
-- Änderungsprotokolle: `CHANGELOG.md`, `Richtig/CHANGELOG.md`, `Richtig/GitHub/CHANGELOG.md`
-- Release-Notiz: `Richtig/GitHub/Release/Release-Notes-v<Version>.md`
+- App-Code, Ressourcen und Tests: `app/`
+- Versionsnummer: `app/Resources/Info.plist`
+- Änderungsprotokolle: `CHANGELOG.md`, `app/CHANGELOG.md`, `app/GitHub/CHANGELOG.md`
+- Release-Notiz: `app/GitHub/Release/Release-Notes-v<Version>.md`
 - Release-Ablauf: `.github/workflows/release.yml`
 
 ## Benötigt für ein offizielles Release
@@ -32,4 +32,4 @@ Die Veröffentlichung bleibt ein Entwurf, bis sie von Hand freigegeben wird.
 
 ## Nicht als fertiges Release behandeln
 
-`Richtig/dist/AlfredHelp.app` ist eine lokale, ignorierte Build-Ausgabe. Sie wird nicht als GitHub-Artefakt verwendet. Nur das im Release-Ablauf signierte und von Apple notarisierte, anschließend geprüfte Archiv ist für die Freigabe vorgesehen.
+`app/dist/AlfredHelp.app` ist eine lokale, ignorierte Build-Ausgabe. Sie wird nicht als GitHub-Artefakt verwendet. Nur das im Release-Ablauf signierte und von Apple notarisierte, anschließend geprüfte Archiv ist für die Freigabe vorgesehen.

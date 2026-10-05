@@ -59,12 +59,12 @@ Unter *Einstellungen → Aktionen → Allgemein* Leseberechtigung für Inhalte u
 
 Unter *Einstellungen → Allgemein → Social Preview* ein Bild mit 1280 × 640 Pixeln eintragen.
 
-Ein Bild des laufenden Overlays zeigt besser als ein Logo, was die App macht: links das Gespräch, rechts eine Antwortkarte. Das Bild muss unter `Richtig/docs/bilder/overlay.png` liegen. Erst wenn es vorhanden ist, einen Link in die README aufnehmen.
+Ein Bild des laufenden Overlays zeigt besser als ein Logo, was die App macht: links das Gespräch, rechts eine Antwortkarte. Das Bild muss unter `app/docs/bilder/overlay.png` liegen. Erst wenn es vorhanden ist, einen Link in die README aufnehmen.
 
 ## Erster Eindruck
 
 Die README erklärt die drei wichtigsten Punkte:
 
 1. **Läuft lokal.** Der einzige Netzwerkweg im Betrieb geht zu `127.0.0.1`; für die Einrichtung gibt es einen Ollama-Download.
-2. **Zahlen sind gemessen.** Präzision, Trefferquote, Latenzen und Modellauswahl stammen aus `Richtig/Benchmarks/`.
+2. **Zahlen sind gemessen.** Präzision, Trefferquote, Latenzen und Modellauswahl stammen aus `app/Benchmarks/`.
 3. **Richtet sich selbst ein.** Laden, öffnen, fertig. Kein Terminal und kein Homebrew nötig.

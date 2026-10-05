@@ -43,11 +43,11 @@ Beim ersten Start richtet AlfredHelp fehlende Komponenten ein. Dafür braucht es
 
 ## Entwicklung
 
-Quellcode, Bauanleitung und Tests liegen in [`Richtig/`](Richtig/README.md). Messwerte und technische Details stehen in der [Dokumentation](Richtig/docs/Technische-Dokumentation.md).
+Quellcode, Bauanleitung und Tests liegen in [`app/`](app/README.md). Messwerte und technische Details stehen in der [Dokumentation](app/docs/Technische-Dokumentation.md).
 
 ```bash
 ./build.sh
-(cd Richtig && swift test)
+(cd app && swift test)
 ```
 
 Release-Unterlagen und Versionsskript liegen in [`PalescoDev/`](PalescoDev/README.md).
