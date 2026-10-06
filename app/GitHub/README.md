@@ -14,6 +14,12 @@
 - Sie schlägt kurze Antworten vor.
 - Sie kann das eigene Fenster bei einer Bildschirmfreigabe verbergen.
 
+## KI-Unterstützung
+
+AlfredHelp wurde mit KI-Unterstützung entwickelt. Davon getrennt nutzt die App selbst lokale KI über Ollama für Übersetzung, Frageerkennung, Antwortvorschläge und Gesprächszusammenfassungen.
+
+Wie ich KI im Entwicklungsprozess eingesetzt habe, welche Aufgaben die Subagenten übernahmen und wie ich die Ergebnisse geprüft habe, steht in der [Dokumentation zum KI-Entwicklungsprozess](app/docs/KI-Entwicklungsprozess.md). Die Laufzeit-Prompts der App liegen zentral in [`Prompts.swift`](app/Sources/AlfredHelpCore/Intelligence/Prompts.swift).
+
 ## Installation
 
 Nach dem Release findest du das signierte ZIP auf der [Release-Seite](https://github.com/PalescoDev/AlfredHelp/releases). Entpacke es und ziehe `dist/AlfredHelp.app` in den Programme-Ordner.
